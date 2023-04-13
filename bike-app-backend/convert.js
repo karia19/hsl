@@ -20,6 +20,10 @@ const readJorneyData = async (fileName) => {
         const filteredData = jsonArray.filter(( x => Number(x['Duration']) >= 10 || Number(x['CoveredDistance']) > 10))
         //console.log(filteredData);
         const resFromSaveToMongo = await makeDatatoMongo(filteredData)
+        
+        if (resFromSaveToMongo == "ok"){
+            console.log("data is saved ....")
+        }
     
     } catch(e){
         console.log(e)
@@ -41,7 +45,7 @@ const readStationData = async (fileName) => {
 
 
 const makeDatatoMongo = async (dataToMongo) => {
-    console.log(dataToMongo)
+    //console.log(dataToMongo)
     mongoApp.MongoConnect()
     
     try {
@@ -58,6 +62,5 @@ const makeDatatoMongo = async (dataToMongo) => {
 
 }
 
-readStationData('./csvFiles/stations.csv')
-
-//readJorneyData('./csvFiles/2021-05.csv')
+//readStationData('./csvFiles/stations.csv')
+readJorneyData('./csvFiles/2021-05.csv')

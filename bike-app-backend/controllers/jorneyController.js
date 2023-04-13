@@ -24,7 +24,6 @@ exports.getFifty = async (req, res, next) => {
         console.log(page)
         const resultLen = 50
         const jorneyFifty = await jorneyData.find()
-                .sort()
                 .skip(resultLen * page)
                 .limit(resultLen)
 
@@ -51,8 +50,39 @@ exports.getByDepartureStation = async ( req, res, next ) => {
 
 
     } catch(e){
-
+        res.sendStatus(400).json({ message: "error..."})
     }
 
 }
+exports.getLongestDistance = async (req, res, next) => {
+    try {
+        const longest = await jorneyData.find()
+            .sort({ CoveredDistance: -1 })
+            .limit(50)
+
+        res.json({
+            data: longest
+        })
+
+    } catch(e){
+        res.sendStatus(400).json({ message: "error..."})
+    }
+}
+exports.getLongestDuration = async (req, res, next) => {
+    try {
+        const longest = await jorneyData.find()
+            .sort({ Duration: -1 })
+            .limit(50)
+
+        res.json({
+            data: longest
+        })
+
+    } catch(e) {
+        res.sendStatus(400).jsone({ message: "error..."})
+    }
+}
+
+
+
 

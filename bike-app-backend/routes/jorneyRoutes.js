@@ -6,12 +6,19 @@ const router = express.Router()
 router.route("/all")
     .get(jorneyController.getAll)
     
-/// Show only fifty jorneys ///
+/// Show only fifty jorneys and pagnation in pages ///
 router.route("/fifty")
     .get(jorneyController.getFifty)
 
 /// Find by station name ///
 router.route("/:station")
     .post(jorneyController.getByDepartureStation)
+
+router.route("/longestDistance")
+    .get(jorneyController.getLongestDistance)
+
+router.route("/longestDuration")
+    .get(jorneyController.getLongestDuration)
+
 
 module.exports = router;
