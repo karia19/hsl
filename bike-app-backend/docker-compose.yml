@@ -1,0 +1,49 @@
+
+version: "3"
+services:
+  node_app:
+    build:
+      context: .
+      args: 
+        NODE_ENV: development
+
+    volumes:
+      - ./:/app:ro
+      - /app/node_modules 
+    environment:
+      - NODE_ENV=development
+      # MONGODB PASSWORDS FOR CONFIG.JS FILE
+      - MONGO_USER=karppa
+      - MONGO_PASSWORD=karppa80 
+    
+    depends_on:
+      - mongo
+      
+    command: npm run dev
+
+    ports:
+      - "3003:3003"
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=karppa
+      - MONGO_INITDB_ROOT_PASSWORD=karppa2023
+    volumes:
+      - ./mongo-db:/data/db
+
+    ports:
+      - "27017:27017"
+
+  
+  #python_api:
+  #  image: python_codes_python_api
+
+  #  volumes:
+  #    - .:/app
+
+  
+  
+      
+volumes:
+  mongo-db:
