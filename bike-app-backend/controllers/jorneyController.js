@@ -1,5 +1,5 @@
 const jorneyData = require('../models/journeyData');
-
+const math = require('mathjs')
 
 exports.getAll = async (req, res, next) => {
     try {
@@ -43,8 +43,21 @@ exports.getByDepartureStation = async ( req, res, next ) => {
         const stationToFind = req.body.station
         console.log(stationToFind)
         const fromDbByStation = await jorneyData.find({ DepartureStationName: stationToFind })
+        
+        const meanDistance = math.mean(fromDbByStation.map(x => x['CoveredDistance']))
+        const maxDistance = Math.max(...fromDbByStation.map(x => x['CoveredDistance']))
+
+        const meanDuration = math.mean(fromDbByStation.map(x => x['Duration']))
+        const maxDuration = Math.max(...fromDbByStation.map(x => x['Duration']))
+
+        
         res.json({
             results: fromDbByStation.length,
+            meanDistance: meanDistance / 1000,
+            maxDistance: maxDistance / 1000,
+            meanDuration: meanDuration / 60,
+            maxDuration: maxDuration / 60,
+            meanSpeed: (meanDistance / 1000) / (meanDuration / 3600),
             data: fromDbByStation
         })
 
