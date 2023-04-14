@@ -18,6 +18,7 @@ exports.getAll = async (req, res, next) => {
         res.sendStatus(400).json({ messgae: "err..."})
     }
 }
+/// get fifty jorney using query parametters ( pagnation ) ///
 exports.getFifty = async (req, res, next) => {
     try{
         const page = req.query.page
@@ -38,6 +39,7 @@ exports.getFifty = async (req, res, next) => {
         res.sendStatus(400).json({ message: "err in get...."})
     }
 }
+/// find departure stations data by station and calculate some stats ///
 exports.getByDepartureStation = async ( req, res, next ) => {
     try {
         const stationToFind = req.body.station
@@ -67,6 +69,7 @@ exports.getByDepartureStation = async ( req, res, next ) => {
     }
 
 }
+/// get 50 longest distance ///
 exports.getLongestDistance = async (req, res, next) => {
     try {
         const longest = await jorneyData.find()
@@ -81,6 +84,7 @@ exports.getLongestDistance = async (req, res, next) => {
         res.sendStatus(400).json({ message: "error..."})
     }
 }
+/// get fifty longest duration ///
 exports.getLongestDuration = async (req, res, next) => {
     try {
         const longest = await jorneyData.find()
