@@ -17,7 +17,7 @@ const readJorneyData = async (fileName) => {
                 'DepartureStationName', 'ReturnStationId', 'ReturnStationName', 'CoveredDistance', 'Duration'
                 ]}).fromFile(fileName);
         
-        const filteredData = jsonArray.filter(( x => Number(x['Duration']) >= 10 || Number(x['CoveredDistance']) > 10))
+        const filteredData = jsonArray.filter(( x => Number(x['Duration']) >= 10 && Number(x['CoveredDistance']) > 10))
         //console.log(filteredData);
         const resFromSaveToMongo = await makeDatatoMongo(filteredData)
         
@@ -63,4 +63,4 @@ const makeDatatoMongo = async (dataToMongo) => {
 }
 
 //readStationData('./csvFiles/stations.csv')
-readJorneyData('./csvFiles/2021-06.csv')
+readJorneyData('./csvFiles/2021-05.csv')

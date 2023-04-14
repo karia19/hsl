@@ -15,7 +15,7 @@ exports.getAll = async (req, res, next) => {
 
 
     } catch(e){
-        res.sendStatus(400).json({ messgae: "err..."})
+        res.sendStatus(500).json({ messgae: "err..."})
     }
 }
 /// get fifty jorney using query parametters ( pagnation ) ///
@@ -36,7 +36,7 @@ exports.getFifty = async (req, res, next) => {
         })
 
     } catch(e){
-        res.sendStatus(400).json({ message: "err in get...."})
+        res.sendStatus(500).json({ message: "err in get...."})
     }
 }
 /// find departure stations data by station and calculate some stats ///
@@ -46,26 +46,40 @@ exports.getByDepartureStation = async ( req, res, next ) => {
         console.log(stationToFind)
         const fromDbByStation = await jorneyData.find({ DepartureStationName: stationToFind })
         
-        const meanDistance = math.mean(fromDbByStation.map(x => x['CoveredDistance']))
-        const maxDistance = Math.max(...fromDbByStation.map(x => x['CoveredDistance']))
 
-        const meanDuration = math.mean(fromDbByStation.map(x => x['Duration']))
-        const maxDuration = Math.max(...fromDbByStation.map(x => x['Duration']))
+        try {
+            const meanDistance = math.mean(fromDbByStation.map(x => x['CoveredDistance']))
+            const maxDistance = Math.max(...fromDbByStation.map(x => x['CoveredDistance']))
 
-        
-        res.json({
-            results: fromDbByStation.length,
-            meanDistance: meanDistance / 1000,
-            maxDistance: maxDistance / 1000,
-            meanDuration: meanDuration / 60,
-            maxDuration: maxDuration / 60,
-            meanSpeed: (meanDistance / 1000) / (meanDuration / 3600),
-            data: fromDbByStation
-        })
+            const meanDuration = math.mean(fromDbByStation.map(x => x['Duration']))
+            const maxDuration = Math.max(...fromDbByStation.map(x => x['Duration']))
+     
+            console.log(meanDistance, maxDistance, meanDuration, maxDuration)
+            
+            res.json({
+                results: fromDbByStation.length,
+                meanDistance: meanDistance / 1000,
+                maxDistance: maxDistance / 1000,
+                meanDuration: meanDuration / 60,
+                maxDuration: maxDuration / 60,
+                meanSpeed: (meanDistance / 1000) / (meanDuration / 3600),
+                data: fromDbByStation.slice(0, 50)
+            })
+        } catch(e) {
+            res.json({
+                results: fromDbByStation.length,
+                meanDistance: 0,
+                maxDistance: 0,
+                meanDuration: 0,
+                maxDuration: 0,
+                meanSpeed: 0,
+                data: fromDbByStation.slice(0, 50)
+            })
 
+        }
 
     } catch(e){
-        res.sendStatus(400).json({ message: "error..."})
+        res.sendStatus(500).json({ message: "error..."})
     }
 
 }
@@ -96,7 +110,7 @@ exports.getLongestDuration = async (req, res, next) => {
         })
 
     } catch(e) {
-        res.sendStatus(400).jsone({ message: "error..."})
+        res.sendStatus(500).jsone({ message: "error..."})
     }
 }
 
