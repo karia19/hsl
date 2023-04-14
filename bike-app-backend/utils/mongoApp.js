@@ -26,6 +26,7 @@ async function MongoConnect(){
 
 async function MongoClose(){
     mongoose.connection.close()
+    console.log("connection is closed")
 }
     
 module.exports = {MongoClose, MongoConnect};

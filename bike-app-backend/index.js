@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const jorneyRoutes = require('./routes/jorneyRoutes');
+const stationsRoutes = require('./routes/stationRoutes');
 const mongoose = require('mongoose');
 const mongoUri = `mongodb://karppa:karppa2023@0.0.0.0:27017?authSource=admin`
 
@@ -24,7 +25,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/v1/", jorneyRoutes)
-
+app.use("/api/v1/stations/", stationsRoutes)
 
 const port = process.env.PORT || 3003
 app.listen(port, () => console.log(`server is running ${port}`))

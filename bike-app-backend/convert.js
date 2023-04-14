@@ -2,7 +2,7 @@
 const csv = require('csvtojson');
 const jorney = require('./models/journeyData');``
 const mongoApp = require('./utils/mongoApp');
-
+const stations = require('./models/stationsData');
 /*
 
 Read jorney csv files and drop some journeys that last less than ten seconds
@@ -37,23 +37,38 @@ const readStationData = async (fileName) => {
                 }).fromFile(fileName)
         
         console.log(jsonStation)
+        const saveStations = await stationsToMongo(jsonStation)
 
     } catch(e){
         console.log("Error in read stattion data", e)
     }
 }
 
-
-const makeDatatoMongo = async (dataToMongo) => {
-    //console.log(dataToMongo)
+/// Stations to mongo docker ///
+const stationsToMongo = async (dataToMongo) => {
     mongoApp.MongoConnect()
-    
+    console.log("Stations size is", dataToMongo.length)
+    try {
+        for (let i = 0; i <= dataToMongo.length; i++){
+            const resFromMongo = await stations.create(dataToMongo[i])
+        }
+        mongoApp.MongoClose()
+    } catch(e){
+        console.log("error to station data....")
+        mongoApp.MongoClose()
+    }
+}
+
+//// Jorneys to mongo docker ///
+const makeDatatoMongo = async (dataToMongo) => {   
+    mongoApp.MongoConnect()
+    console.log("Jorney size is", dataToMongo.length)
     try {
         for (let i = 0; i <= dataToMongo.length; i++){
             const resFromMongo = await jorney.create(dataToMongo[i])
             //console.log(resFromMongo)
         }
-
+        mongoApp.MongoClose()
         return "ok"
 
     } catch (e) {
