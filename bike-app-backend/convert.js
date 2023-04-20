@@ -1,6 +1,6 @@
 //const fs = require('fs');
 const csv = require('csvtojson');
-const jorney = require('./models/journeyData');``
+const jorney = require('./models/journeyData');
 const mongoApp = require('./utils/mongoApp');
 const stations = require('./models/stationsData');
 /*
@@ -22,7 +22,8 @@ const readJorneyData = async (fileName) => {
         const resFromSaveToMongo = await makeDatatoMongo(filteredData)
         
         if (resFromSaveToMongo == "ok"){
-            console.log("data is saved ....")
+            console.log("jorney data is saved ....")
+            mongoApp.MongoClose()
         }
     
     } catch(e){
@@ -38,6 +39,10 @@ const readStationData = async (fileName) => {
         
         console.log(jsonStation)
         const saveStations = await stationsToMongo(jsonStation)
+        if (saveStations == "ok"){
+            console.log("station data is saved ....")
+            mongoApp.MongoClose()
+        }
 
     } catch(e){
         console.log("Error in read stattion data", e)
@@ -52,7 +57,7 @@ const stationsToMongo = async (dataToMongo) => {
         for (let i = 0; i <= dataToMongo.length; i++){
             const resFromMongo = await stations.create(dataToMongo[i])
         }
-        mongoApp.MongoClose()
+        return "ok"
     } catch(e){
         console.log("error to station data....")
         mongoApp.MongoClose()
@@ -79,3 +84,5 @@ const makeDatatoMongo = async (dataToMongo) => {
 
 //readStationData('./csvFiles/stations.csv')
 readJorneyData('./csvFiles/2021-05.csv')
+//readJorneyData('./csvFiles/2021-06.csv')
+//readJorneyData('./csvFiles/2021-07.csv')

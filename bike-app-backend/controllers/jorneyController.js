@@ -22,7 +22,8 @@ exports.getAll = async (req, res, next) => {
 exports.getFifty = async (req, res, next) => {
     try{
         const page = req.query.page
-        console.log(page)
+        const station = req.query.station
+        //console.log(page, station)
         const resultLen = 50
         const jorneyFifty = await jorneyData.find()
                 .skip(resultLen * page)
@@ -45,9 +46,10 @@ exports.getByDepartureStation = async ( req, res, next ) => {
         const stationToFind = req.body.station
         console.log(stationToFind)
         const fromDbByStation = await jorneyData.find({ DepartureStationName: stationToFind })
-        
+        const returnByStation = await jorneyData.find({  ReturnStationName: stationToFind })
 
         try {
+            /// stats from departure station ///
             const meanDistance = math.mean(fromDbByStation.map(x => x['CoveredDistance']))
             const maxDistance = Math.max(...fromDbByStation.map(x => x['CoveredDistance']))
 
@@ -56,13 +58,28 @@ exports.getByDepartureStation = async ( req, res, next ) => {
      
             console.log(meanDistance, maxDistance, meanDuration, maxDuration)
             
+            /// stations from return station /// 
+            const returnMeanDistance = math.mean(returnByStation.map(x => x['CoveredDistance']))
+            const returnMaxDistance = Math.max(...returnByStation.map(x => x['CoveredDistance']))
+
+            const returnMeanDuration = math.mean(returnByStation.map(x => x['Duration']))
+            const returnMaxDuration = Math.max(...returnByStation.map(x => x['Duration']))
+
             res.json({
-                results: fromDbByStation.length,
-                meanDistance: meanDistance / 1000,
-                maxDistance: maxDistance / 1000,
-                meanDuration: meanDuration / 60,
-                maxDuration: maxDuration / 60,
-                meanSpeed: (meanDistance / 1000) / (meanDuration / 3600),
+                departureResults: fromDbByStation.length,
+                departureMeanDistance: meanDistance / 1000,
+                departureMaxDistance: maxDistance / 1000,
+                departureMeanDuration: meanDuration / 60,
+                departureMaxDuration: maxDuration / 60,
+                departureMeanSpeed: (meanDistance / 1000) / (meanDuration / 3600),
+                
+                retrunResults: returnByStation.length,
+                returnMeanDistance: returnMeanDistance / 1000,
+                returnMaxDistance: returnMaxDistance / 1000,
+                returnMeanDuration: returnMeanDuration / 60,
+                returnMaxDuration: returnMaxDuration / 60,
+                returnMeanSpeed: (returnMeanDistance / 1000) / (returnMeanDuration / 3600),
+
                 data: fromDbByStation.slice(0, 50)
             })
         } catch(e) {
@@ -111,6 +128,80 @@ exports.getLongestDuration = async (req, res, next) => {
 
     } catch(e) {
         res.sendStatus(500).jsone({ message: "error..."})
+    }
+}
+/// Top 5 most popular return stations and departure statons ///
+exports.fivePopularStation = async ( req, res, next ) => {
+    try {
+        const stationToFind = req.body.name
+        const topDepartureStations = await jorneyData.aggregate([
+            // Find stations //
+            { 
+                $match: { DepartureStationName: stationToFind}
+            
+            },
+            // Goup by staion name and all station travels //
+            {
+                $group : { _id : "$ReturnStationName", stations: { $push: "$$ROOT" } }
+            },
+            // Stations tarvels //
+            {
+                $addFields:
+                {
+                  totalDepartures : { $size: "$stations" }
+                }
+            },
+            // Sort totalDepartures //
+            {
+                $sort: { totalDepartures: -1 }
+            },
+          
+
+        ])
+        const topReturnStations = await jorneyData.aggregate([
+            // Find stations //
+            { 
+                $match: { ReturnStationName: stationToFind}
+            
+            },
+            // Goup by staion name and all station travels //
+            {
+                $group : { _id : "$DepartureStationName", stations: { $push: "$$ROOT" } }
+            },
+            // Stations tarvels //
+            {
+                $addFields:
+                {
+                  totalDepartures : { $size: "$stations" }
+                }
+            },
+            // Sort totalRetruns //
+            {
+                $sort: { totalDepartures: -1 }
+            },
+          
+
+        ])
+        
+        res.json({
+            departureStation: topDepartureStations.slice(0, 5).map(x => (
+                {
+                    station: x['_id'],
+                    jorneyTotal: x['totalDepartures']
+                }
+            )),
+            retrunSatation: topReturnStations.slice(0, 5).map(x => (
+                {
+                    station: x['_id'],
+                    jorneyTotal: x['totalDepartures']
+                }
+            )),
+            
+        })
+
+       
+    } catch(e){
+        res.sendStatus(500)
     }
 }
 

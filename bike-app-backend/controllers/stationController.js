@@ -19,3 +19,12 @@ exports.getStations = async (req, res, next) => {
         res.sendStatus(500).json({ messgae: "err..."})
     }
 }
+
+exports.stationByName = async (req, res, next) => {
+    try {
+        const station = req.body.name
+
+    } catch(e){
+        res.semd(500)
+    }
+}
