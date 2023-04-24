@@ -1,12 +1,13 @@
 
 import './App.css';
-import CityMap from './components/citymap';
+//import CityMap from './components/citymap';
+import MapTest from './components/testMap'
+import React from 'react'
 
 function App() {
   return (
       <div>
-        <h2>HSL bike app</h2>
-        <CityMap />
+        <MapTest />
       </div>
   );
 }

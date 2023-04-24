@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import {createRoot} from 'react-dom/client';
-import { Map } from 'react-map-gl';
+import { Map ,Popup } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import DeckGL from '@deck.gl/react';
 import { MapView } from '@deck.gl/core';
@@ -15,8 +14,10 @@ const INITIAL_VIEW_STATE = {
   latitude:60.192059,
   zoom: 11,
   pitch: 0,
-  bearing: 0
+  bearing: 0,
+
 };
+
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
 const MAP_VIEW = new MapView({repeat: true});
 const ICON_MAPPING = {
@@ -48,13 +49,15 @@ const MapApp = () => {
 
   const layer = [
       new ScatterplotLayer({
-        id: 'scatterplot-layer',
+        id: 'arc-layer',
         data: stationsData,
         opacity: 1,
         getFillColor: d =>  d.Color,
         radiusMinPixels: 1,
-        onHover: (info, event) => console.log('Hovered:', info, event),
-        onClick: info => setHoverInfo(info.position),
+        onHover: ({ object, x, y }) => {
+          const tooltip = `${object.name}\n${object.address}`},
+
+        //onClick: info => setHoverInfo(info.position),
 
         //data: [
         //  { position: [24.840319,60.16582], radius: 5 , Color: [225, 140, 0],},
@@ -63,30 +66,37 @@ const MapApp = () => {
         //],
         //data: stationsData,
         radiusScale: 40,
+        
+        
+
       }),
-     
+      
   ]
   //console.log(layer)
 
     return(
         <DeckGL
+            
+
             layers={layer}
-            getTooltip={({object}) => object && object.radius}
             pickable={true}
             views={MAP_VIEW}
             initialViewState={INITIAL_VIEW_STATE}
             //controller={{dragRotate: false}}
+            
             controller={true}
-
             //onViewStateChange={hideTooltip}
-            onClick={(x) => console.log(x)}
-
-                  
+            onClick={(x) => console.log("sss",hoverInfo)}
+            //onHover={() => console.log("hover")}
+            getTooltip={(stationData) => ({
+            text: "dds"
+            })}
             //getTooltip={() => stationsData && `${stationsData.name}\n${stationsData.address}`} 
             //getTooltip={({stationsData}) => stationsData && `${stationsData.name}\n${stationsData.address}`}
 
 
             >
+            
              {hoverInfo && (
               <div style={{position: 'absolute', zIndex: 1, pointerEvents: 'none', left: hoverInfo.x, top: hoverInfo.y}}>
                { hoverInfo.object.message }
