@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Map, { Marker, Popup } from 'react-map-gl';
 
 import maplibregl from 'maplibre-gl';
@@ -7,13 +7,16 @@ import Pin from './pin'
 import Icon from '../images/map-marker.png'
 import axios from 'axios';
 
+import CITIES from '../data.json'
+
 
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
+const URL_stations = 'http://localhost:3003/api/v1/stations'
 
-
-export function TestMapp () {
+const TestMapp = () => {
+    const [ stationsData, setStationsData ] = useState([])
     const [ popUpInfo, setPopUpInfo ] = useState(null)
-    const [viewport, setViewPort ] = useState({
+    const [ viewport, setViewPort ] = useState({
         longitude: 24.945831,
         latitude: 60.192059,
         zoom: 11,
@@ -22,6 +25,38 @@ export function TestMapp () {
 
     })
 
+    useEffect(() => {
+        (async() => {
+            const resStations = await axios.get(URL_stations)
+            //const modData = await ModStationData(resStations.data)
+            setStationsData(resStations.data.data.filter(x => x['x'] != undefined))
+            console.log("filter", resStations.data.data.filter(x => x['x'] != undefined))
+            console.log("not filter", resStations.data.data)
+
+        })();
+    },[])  
+
+    const pins = useMemo(
+        () =>
+          CITIES.map((city, index) => (
+            <Marker
+              key={city.ID}
+              longitude={city.x}
+              latitude={city.y}
+              anchor="bottom"
+              onClick={e => {
+                e.originalEvent.stopPropagation();
+                setPopUpInfo(city);
+              }}
+            >
+              <Pin />
+            </Marker>
+          )),
+        []
+      );
+    
+    
+    
 
     return(
         <>
@@ -37,40 +72,41 @@ export function TestMapp () {
         
              
         >
-        <Marker
-            key={1}
-            longitude={24.805825}
-            latitude={60.176168}
-            anchor="bottom"
-            onClick={e => {
-                e.originalEvent.stopPropagation();
-                setPopUpInfo("hello");
-            }}
-          
-            >
-            <Pin />
+        {pins}
+        {/*
+            {CITIES.map((city) =>
+            <Marker 
+                longitude={city.x == NaN ? 0: city.x} 
+                latitude={city.y == NaN ? 0: city.y} 
+                anchor="bottom" >
+                <Pin />
+            </Marker>
+            )}
+         */}   
             {popUpInfo && (
                 <Popup
                     anchor="top"
                     
-                    //longitude={Number(popupInfo.longitude)}
-                    //latitude={Number(popupInfo.latitude)}
+                    longitude={popUpInfo.x}
+                    latitude={popUpInfo.y}
                     
                     onClose={() => setPopUpInfo(null)}
                     >
-                    <div>
-                    {/*{popupInfo.city}, {popupInfo.state} |{' '}*/}
-                    <a
-                        target="_new"
-                        href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=`}
-                    >
-                        Wikipedia
-                    </a>
-                    </div>
-                    <img width="100%" />
+                    <div  style={{ width: "auto"}}>
+                        <h3>{popUpInfo.Osoite}</h3>
+                        <p>Place: {popUpInfo.Nimi}</p>
+                        <p>Bikes: {popUpInfo.Kapasiteet}</p>
+                        <a
+                            target="_new"
+                            href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=`}
+                        >
+                            <button className='btn  btn-outline-dark'>More Details</button>
+                        </a>
+                     </div>
+                       
                 </Popup>
                 )}
-        </Marker>
+        
         
         </Map>
         </>
