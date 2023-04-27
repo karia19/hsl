@@ -12,24 +12,24 @@ const NavBar = () => {
 
     return(
         
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/sstats">Stats</a>
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+        <div className="container-fluid">
+            <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                    <ul className="navbar-nav me-auto">
+                        <li className="nav-item active">
+                            <a className="nav-link" href="/stats">Stats</a>
                         </li>
                     </ul>
                 </div>
-                <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
+                <button type="button" className="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="mx-auto order-0">
-                    <a class="navbar-brand mx-auto" href="/">
+                <div className="mx-auto order-0">
+                    <a className="navbar-brand mx-auto" href="/">
                         <img src={Brand} alt="" width="40" height="30"></img>HSL Bike App 
                     </a>
                 </div>
-                <div class="navbar-collapse collapse w-100 order-3 navbar-collapse">
+                <div className="navbar-collapse collapse w-100 order-3 navbar-collapse">
 
 
                 <form className="ms-auto d-flex">
