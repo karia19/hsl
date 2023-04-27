@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, Suspense } from 'react'
 import Map, { Marker, Popup } from 'react-map-gl';
-
-import maplibregl from 'maplibre-gl';
 import Pin from './pin'
 //import 'mapbox-gl/dist/mapbox-gl.css';
 import Icon from '../images/map-marker.png'
@@ -19,9 +17,8 @@ const TestMapp = () => {
     const [ viewport, setViewPort ] = useState({
         longitude: 24.945831,
         latitude: 60.192059,
-        zoom: 11,
-        width: "100vh",
-        height: "100vh"
+        zoom: 12,
+       
 
     })
 
@@ -29,8 +26,8 @@ const TestMapp = () => {
         (async() => {
             const resStations = await axios.get(URL_stations)
             //const modData = await ModStationData(resStations.data)
-            setStationsData(resStations.data.data.filter(x => x['x'] != undefined))
-            console.log("filter", resStations.data.data.filter(x => x['x'] != undefined))
+            setStationsData(resStations.data.data.filter(x => x['x'] !== undefined))
+            console.log("filter", resStations.data.data.filter(x => x['x'] !== undefined))
             console.log("not filter", resStations.data.data)
 
         })();
@@ -55,19 +52,25 @@ const TestMapp = () => {
         []
       );
     
-    
+    function Loading() {
+        return ( 
+          <div style={{ display:"flex", justifyContetnt: "center", alignItems: "center" , position: "relative"}} className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        )
+    }
     
 
     return(
         <>
+        <Suspense fallback={<Loading />}>
         <Map
             {... viewport}
             onMove={evt => setViewPort(evt.viewState)}
-            mapboxAccessToken="pk.eyJ1Ijoia2FyaWEyMDIzIiwiYSI6ImNsZ3JpZHh2czBuNDczcG1reDFrNWJpeXoifQ.xu3lRPVRcWM-MAmL3FCByw"
-            style={{width: '100vw', height: '100vh'}}
+            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN} //"pk.eyJ1Ijoia2FyaWEyMDIzIiwiYSI6ImNsZ3JpZHh2czBuNDczcG1reDFrNWJpeXoifQ.xu3lRPVRcWM-MAmL3FCByw"
+            style={{width: '100%', height: '100vh',  }}
 
-            mapStyle={MAP_STYLE}
-            mapLib={maplibregl}
+            mapStyle="mapbox://styles/karia2023/clgxbaxd700cg01qy8i0u95fx"
 
         
              
@@ -92,15 +95,17 @@ const TestMapp = () => {
                     
                     onClose={() => setPopUpInfo(null)}
                     >
-                    <div  style={{ width: "auto"}}>
+                    <div className='pop-up-info'>
+                        
                         <h3>{popUpInfo.Osoite}</h3>
+                        
                         <p>Place: {popUpInfo.Nimi}</p>
                         <p>Bikes: {popUpInfo.Kapasiteet}</p>
                         <a
                             target="_new"
                             href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=`}
                         >
-                            <button className='btn  btn-outline-dark'>More Details</button>
+                            <button className='btn btn-outline-primary shadow-none'>More Details</button>
                         </a>
                      </div>
                        
@@ -109,6 +114,7 @@ const TestMapp = () => {
         
         
         </Map>
+        </Suspense>
         </>
     )
 }

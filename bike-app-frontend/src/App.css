@@ -1,10 +1,39 @@
 
+/*
+.map-back {
+  background-color: rgb(201, 200, 201);
+  z-index: -1;
+}
+.map-back canvas  {
+    padding: 15px;
+        
+    
+}
+*/
+.button {
+  outline:none !important;  
+}
+
 .mapboxgl-popup-content {
-  background: rgb(248, 253, 254);
+  background: rgb(48, 48, 48);
+  color: white;
+  opacity: 0.9;
   border-radius: 15px;
   padding: 20px 15px;
+  border-style: solid;
+  border-color:  rgb(42, 42, 42);
 }
 .mapboxgl-popup-content p {
   font-size: 15px;
-  font-weight: 600;
+  margin-bottom: 4px;
+}
+.mapboxgl-popup-content h3 {
+  max-width: 300px;
+  font-size: 20px;
+}
+.mapboxgl-popup-tip {
+  border-bottom-color: rgb(32, 33, 33);
+}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip, .maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: rgb(48, 48, 48);
 }

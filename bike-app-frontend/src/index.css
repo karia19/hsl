@@ -5,9 +5,32 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: Raleway; 
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.nav-link  {
+  font-size: 19px;;
+}
+.nav-link {
+  color: rgb(23, 233, 16) !important;
+  font-weight: 500;
+}
+.nav-item :active {
+  padding: 20px;
+}
+
+.navbar{
+  background-color: rgb(51, 48, 48) !important;
+  
+}
+textarea:focus, input:focus{
+  outline: none;
+}
+input:focus {
+  outline:none;
 }
