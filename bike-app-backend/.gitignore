@@ -2,3 +2,4 @@ node_modules
 /csvFiles
 /mongo-db
 .env
+./vscode

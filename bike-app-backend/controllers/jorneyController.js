@@ -1,6 +1,8 @@
 const jorneyData = require('../models/journeyData');
 const math = require('mathjs')
 
+
+
 exports.getAll = async (req, res, next) => {
     try {
         
@@ -23,10 +25,10 @@ exports.getFifty = async (req, res, next) => {
     try{
         const page = req.query.page
         const station = req.query.station
-        //console.log(page, station)
+        console.log(page, station)
         const resultLen = 50
-        const jorneyFifty = await jorneyData.find()
-                .skip(resultLen * page)
+        const jorneyFifty = await jorneyData.find({ DepartureStationName: station})
+                .skip((resultLen * page) - resultLen)
                 .limit(resultLen)
 
         //console.log(jorneyFifty)
@@ -43,7 +45,7 @@ exports.getFifty = async (req, res, next) => {
 /// find departure stations data by station and calculate some stats ///
 exports.getByDepartureStation = async ( req, res, next ) => {
     try {
-        const stationToFind = req.body.station
+        const stationToFind = req.query.name
         console.log(stationToFind)
         const fromDbByStation = await jorneyData.find({ DepartureStationName: stationToFind })
         const returnByStation = await jorneyData.find({  ReturnStationName: stationToFind })
@@ -166,7 +168,9 @@ exports.fivePopularStation = async ( req, res, next ) => {
             },
             // Goup by staion name and all station travels //
             {
-                $group : { _id : "$DepartureStationName", stations: { $push: "$$ROOT" } }
+                $group : { _id : "$DepartureStationName", 
+                            stations: { $push: "$$ROOT" } 
+                        }
             },
             // Stations tarvels //
             {
@@ -179,21 +183,25 @@ exports.fivePopularStation = async ( req, res, next ) => {
             {
                 $sort: { totalDepartures: -1 }
             },
-          
+            
 
         ])
+        //console.log(topDepartureStations)
         
         res.json({
             departureStation: topDepartureStations.slice(0, 5).map(x => (
                 {
                     station: x['_id'],
-                    jorneyTotal: x['totalDepartures']
+                    jorneyTotal: x['totalDepartures'],
+                   
+                    
                 }
             )),
             retrunSatation: topReturnStations.slice(0, 5).map(x => (
                 {
                     station: x['_id'],
-                    jorneyTotal: x['totalDepartures']
+                    jorneyTotal: x['totalDepartures'],
+                    
                 }
             )),
             

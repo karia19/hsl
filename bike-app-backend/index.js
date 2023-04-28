@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
     res.status(200).json({ message: "working node app"})
 })
 
-app.use("/api/v1/", jorneyRoutes)
+app.use("/api/v1/jorneys/", jorneyRoutes)
 app.use("/api/v1/stations/", stationsRoutes)
 
 const port = process.env.PORT || 3003

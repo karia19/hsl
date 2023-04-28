@@ -10,8 +10,8 @@ const router = express.Router()
 router.route("/fifty")
     .get(jorneyController.getFifty)
 /// Find by station name ///
-router.route("/:station")
-    .post(jorneyController.getByDepartureStation)
+router.route("/station")
+    .get(jorneyController.getByDepartureStation)
 /// Find longest distance shows 50  ///
 router.route("/longestDistance")
     .get(jorneyController.getLongestDistance)
@@ -19,7 +19,7 @@ router.route("/longestDistance")
 router.route("/longestDuration")
     .get(jorneyController.getLongestDuration)
 /// Find five popular departure stations ///
-router.route("/fivePopularStations/:name")
+router.route("/fivePopularStations/")
     .post(jorneyController.fivePopularStation)
 
 

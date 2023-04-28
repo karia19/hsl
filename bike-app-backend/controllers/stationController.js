@@ -23,6 +23,12 @@ exports.getStations = async (req, res, next) => {
 exports.stationByName = async (req, res, next) => {
     try {
         const station = req.body.name
+        const stationFromDatabase = await stationData.find({
+            Name: station
+        })
+        res.json({
+            data: stationFromDatabase
+        })
 
     } catch(e){
         res.semd(500)

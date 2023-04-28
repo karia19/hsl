@@ -6,4 +6,8 @@ const router = express.Router()
 router.route("/")
     .get(stationController.getStations)
 
+router.route("/station")
+    .post(stationController.stationByName)
+
+
 module.exports = router;
