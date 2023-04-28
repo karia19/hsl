@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import './station.css'
+import axios from 'axios';
 
-
-const StationTable = (props) => {
+const StationTable = ( props ) => {
     const [ stationList, setStationList ] = useState([]);
-    const [ stationNumEnd, setStationNumEnd ] = useState(10)
-    const [ stationNumStart, setStationNumStart ] = useState(0)
-    console.log(props.data.data)
-    
+    const [ pagnationList, setPagnationList ] = useState([]);
+    const [ stationNumEnd, setStationNumEnd ] = useState(10);
+    const [ stationNumStart, setStationNumStart ] = useState(0);
+    const [ searchPage, setSearchPage ] = useState(0);
+    const [ message, setMessage ] = useState('');
+
+ 
+    const name = props.data.data[0]['DepartureStationName']
+
     useEffect(() => {
-        setStationList(props.data.data.slice(stationNumStart,stationNumEnd))
+        if (searchPage == 0){
+            setStationList(props.data.data.slice(stationNumStart,stationNumEnd))
+        } else {
+            setStationList(pagnationList.slice(stationNumStart, stationNumEnd))
+        }
+        
     },[stationNumEnd])
 
     
@@ -18,9 +28,28 @@ const StationTable = (props) => {
         setStationNumStart(x)
         setStationNumEnd(y)
     }
+    const LoadMoreData = async () => {
+        console.log(searchPage)
+        try {
+            const newPage = await axios.get(`http://localhost:3003/api/v1/jorneys/fifty?page=${searchPage}&station=${name}`)
+            
+            setPagnationList(newPage.data.data)
+            setStationList(newPage.data.data.slice(0, 10))
+            stationNumStart(0)
+            setStationNumEnd(10)
+
+            if (newPage.data.results == 0 ){
+                setTimeout(() => {
+                    setMessage("No data anymore...")
+                }, 3000)
+            } 
+        } catch(e) {
+
+        } 
+    }
 
     return(
-        <div>
+        <div className='container'>
             
             <table className='table table-md table-striped'>
                 <thead>
@@ -43,14 +72,33 @@ const StationTable = (props) => {
                 </tbody>
             </table>
 
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group me-2" role="group" aria-label="First group">
-                <button onClick={() => ChangeLen(0, 10)} type="button" class="btn btn-outline-secondary">1</button>
-                <button onClick={() => ChangeLen(10, 20)} type="button" class="btn btn-outline-secondary">2</button>
-                <button onClick={() => ChangeLen(20, 30)} type="button" class="btn btn-outline-secondary">3</button>
-                <button onClick={() => ChangeLen(30, 40)} type="button" class="btn btn-outline-secondary">4</button>
-                <button onClick={() => ChangeLen(40, 50)} type="button" class="btn btn-outline-secondary">5</button>
-                <button  type="button" class="btn btn-dark">Load More Data</button>
+            <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div className="btn-group me-2" role="group" aria-label="First group">
+                <button onClick={() => ChangeLen(0, 10)} type="button" className="btn btn-outline-secondary">1</button>
+                <button onClick={() => ChangeLen(10, 20)} type="button" className="btn btn-outline-secondary">2</button>
+                <button onClick={() => ChangeLen(20, 30)} type="button" className="btn btn-outline-secondary">3</button>
+                <button onClick={() => ChangeLen(30, 40)} type="button" className="btn btn-outline-secondary">4</button>
+                <button onClick={() => ChangeLen(40, 50)} type="button" className="btn btn-outline-secondary">5</button>
+                
+                <div className="btn-group">
+                    <button onClick={() => LoadMoreData()} type="button" className="btn btn-dark">Load More Data</button>
+                    <button type="button" className="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span className="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul className="dropdown-menu">
+                        <li onClick={() => setSearchPage(1)} className="dropdown-item text-left">1-50</li>
+                        
+                        <li onClick={() => setSearchPage(2)} className="dropdown-item text-left">50-100</li>
+                        
+                        <li onClick={() => setSearchPage(3)} className="dropdown-item text-left">100-150</li>
+                        
+                        <li onClick={() => setSearchPage(4)} className="dropdown-item text-left">150-200</li>
+                        
+                        <li onClick={() => setSearchPage(5)} className="dropdown-item text-left">200-250</li>
+                        
+                    </ul>
+                </div>
+                
 
             </div>
             </div>
