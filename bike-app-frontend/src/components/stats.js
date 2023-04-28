@@ -5,8 +5,8 @@ const duratioUrl = "http://localhost:3003/api/v1/jorneys/longestDuration"
 const distanceUrl = "http://localhost:3003/api/v1/jorneys/longestDistance"
 
 const Stats = () => {
-    const [longestDistanve, setLongestDistnce ] = useState([])
-    const [longestDuration, setLongestDuration ] = useState([])
+    const [ longestDistanve, setLongestDistnce ] = useState([])
+    const [ longestDuration, setLongestDuration ] = useState([])
     const [ message, setMessage ] = useState('')
 
     useEffect(() => {

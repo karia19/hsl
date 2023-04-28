@@ -13,16 +13,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.nav-link  {
-  font-size: 19px;;
+.nav-links {
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
 }
-.nav-link {
-  color: rgb(23, 233, 16) !important;
-  font-weight: 500;
-}
-.nav-item :active {
-  padding: 20px;
-}
+
 
 .navbar{
   background-color: rgb(51, 48, 48) !important;
