@@ -33,11 +33,13 @@ To convert csv files to mongo run node convert.js.
 - mongoose - mongo db connection
 
 
-## API ENDPOINTS 
+## REST API 
 
-- /api/v1/jorneys/, get jorney data from jorneys and stats 
-- /api/v1/stations/, get station data all or one station
-- /api/v1/store/, store new staion or jorney data end point is post get and delete 
+- /api/v1/jorneys/
+  - jjdsd
+  - lslsl
+- /api/v1/stations/
+- /api/v1/store/ 
 
 
 
