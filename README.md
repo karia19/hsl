@@ -1,10 +1,5 @@
 # Helsinki city bike app
 
-## Technologies
-- backend node.js 
-- frontend React
-- Docker
-
 ## RUN APP
 Backend
 ```sh
@@ -15,5 +10,10 @@ docker compose up -d
 Frontend
 ```sh
 cd bike-app frontend
+npm i
 npm start
 ```
+## Technologies
+- backend node.js 
+- frontend React
+- Docker
