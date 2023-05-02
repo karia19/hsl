@@ -3,12 +3,12 @@ FROM node:16.13.2
 WORKDIR /app
 COPY package*.json ./
 
-RUN if [ "$NODE_ENV"= "development" ]; \
-        then npm install; \
-        else npm install --only=production; \
-        fi
+#RUN if [ "$NODE_ENV"= "development" ]; \
+#        then npm install; \
+#        else npm install --only=production; \
+#        fi
 
 COPY . .
 
 ENV PORT 3003
-CMD ["node", "index.js"]
+CMD ["npm", "run", "dev"]
