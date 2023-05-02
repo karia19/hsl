@@ -4,12 +4,13 @@ This is backend for hsl fronted and convert csv files to mongodb and make data v
 
 ## Installation
 
-Install the dependencies and devDependencies and start the server.
+Install the dependencies and start the server.
 
 ```sh
 cd bike-app-backend
 npm i
-node app
+docker compose up -d
+node index.js in dev npm run dev
 ```
 
 ## Sotre csv files to mongo db
