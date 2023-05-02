@@ -3,4 +3,6 @@
 ## Technologies
 - backend node.js 
 - frontend React
+- Docker
+
 
