@@ -38,7 +38,7 @@ To convert csv files to mongo run.
 ## REST API 
 
 - /api/v1/jorneys/
-  - api/v1/orneys/longestDistance
+  - api/v1/jorneys/longestDistance
   - api/v1/jorneys//longestDuration
   
 - /api/v1/stations/
