@@ -10,7 +10,6 @@ Install the dependencies and start the server.
 cd bike-app-backend
 npm i
 docker compose up -d
-node index.js 
 ```
 In develope 
 ```sh
@@ -19,7 +18,10 @@ In develope
 
 ## Store csv files to mongo db
 
-To convert csv files to mongo run node convert.js.
+To convert csv files to mongo run.
+```sh
+  node convert.js.
+```
 - Run stations to mongo use:  readStationData('path_to_csv_file')
 - Run jorneys to mongo use: readJorneyData('path_to_csv_file')
 
