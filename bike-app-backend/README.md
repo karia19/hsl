@@ -2,7 +2,16 @@
 
 This is backend for hsl fronted and convert csv files to mongodb and make data validations before save. Mongodb is in docker file.  
 
-To run this app:
-- docker compose up -d
-- convert csv files to mongo run node convert.js
-- to run backend node index.js ( remember to first run mongo db up ) 
+## Installation
+
+Install the dependencies and devDependencies and start the server.
+
+```sh
+cd bike-app-backend
+npm i
+node app
+```
+
+## Sotre csv files to mongo db
+
+To convert csv files to mongo run node convert.js
