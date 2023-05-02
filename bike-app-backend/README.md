@@ -36,8 +36,9 @@ To convert csv files to mongo run node convert.js.
 ## REST API 
 
 - /api/v1/jorneys/
-  - jjdsd
-  - lslsl
+  - api/v1/orneys/longestDistance
+  - api/v1/jorneys//longestDuration
+  
 - /api/v1/stations/
 - /api/v1/store/ 
 
