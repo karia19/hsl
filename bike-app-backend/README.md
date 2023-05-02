@@ -25,4 +25,9 @@ To convert csv files to mongo run node convert.js.
 
 
 
+## Tech
 
+- [node.js] - evented I/O for the backend
+- [Express] - fast node.js network app framework [@tjholowaychuk]
+- [csvtojson] - HTML enhanced for web apps!
+- [mongoose] - awesome web-based text editor
