@@ -6,4 +6,14 @@
 - Docker
 
 ## RUN APP
-
+Backend
+```sh
+cd bike-app-backend
+npm i
+docker compose up -d
+```
+Frontend
+```sh
+cd bike-app frontend
+npm start
+```
