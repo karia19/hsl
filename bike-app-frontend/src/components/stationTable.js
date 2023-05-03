@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const StationTable = ( props ) => {
     const [ stationList, setStationList ] = useState([]);
+    const [ name, setName ] = useState('');
     const [ pagnationList, setPagnationList ] = useState([]);
     const [ stationNumEnd, setStationNumEnd ] = useState(10);
     const [ stationNumStart, setStationNumStart ] = useState(0);
@@ -11,13 +12,20 @@ const StationTable = ( props ) => {
     const [ message, setMessage ] = useState('');
 
  
-    const name = props.data.data[0]['DepartureStationName']
+    
 
     useEffect(() => {
-        if (searchPage == 0){
-            setStationList(props.data.data.slice(stationNumStart,stationNumEnd))
-        } else {
-            setStationList(pagnationList.slice(stationNumStart, stationNumEnd))
+        try {
+            setName(props.data.data[0]['DepartureStationName'])
+        
+            if (searchPage === 0){
+                setStationList(props.data.data.slice(stationNumStart,stationNumEnd))
+            } else {
+                setStationList(pagnationList.slice(stationNumStart, stationNumEnd))
+            }
+        } catch(err){
+            setMessage("No data ......")
+        
         }
         
     },[stationNumEnd])
@@ -38,7 +46,7 @@ const StationTable = ( props ) => {
             stationNumStart(0)
             setStationNumEnd(10)
 
-            if (newPage.data.results == 0 ){
+            if (newPage.data.results === 0 ){
                 setTimeout(() => {
                     setMessage("No data anymore...")
                 }, 3000)
@@ -51,7 +59,7 @@ const StationTable = ( props ) => {
     return(
         <div className='container'>
             
-            <table className='table table-md table-striped'>
+            <table style={{ color: "white", marginTop: "1.2rem" }} className='table table-md'>
                 <thead>
                     <tr>
                         <th scope='col'>#</th>
@@ -74,15 +82,15 @@ const StationTable = ( props ) => {
 
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div className="btn-group me-2" role="group" aria-label="First group">
-                <button onClick={() => ChangeLen(0, 10)} type="button" className="btn btn-outline-secondary">1</button>
-                <button onClick={() => ChangeLen(10, 20)} type="button" className="btn btn-outline-secondary">2</button>
-                <button onClick={() => ChangeLen(20, 30)} type="button" className="btn btn-outline-secondary">3</button>
-                <button onClick={() => ChangeLen(30, 40)} type="button" className="btn btn-outline-secondary">4</button>
-                <button onClick={() => ChangeLen(40, 50)} type="button" className="btn btn-outline-secondary">5</button>
+                <button onClick={() => ChangeLen(0, 10)} type="button" className="btn btn-outline-primary">1</button>
+                <button onClick={() => ChangeLen(10, 20)} type="button" className="btn btn-outline-primary">2</button>
+                <button onClick={() => ChangeLen(20, 30)} type="button" className="btn btn-outline-primary">3</button>
+                <button onClick={() => ChangeLen(30, 40)} type="button" className="btn btn-outline-primary">4</button>
+                <button onClick={() => ChangeLen(40, 50)} type="button" className="btn btn-outline-primary">5</button>
                 
                 <div className="btn-group">
-                    <button onClick={() => LoadMoreData()} type="button" className="btn btn-dark">Load More Data</button>
-                    <button type="button" className="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button onClick={() => LoadMoreData()} type="button" className="btn btn-primary">Load More Data</button>
+                    <button type="button" className="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                         <span className="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul className="dropdown-menu">
