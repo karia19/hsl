@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import Brand from '../images/map-marker.png'
 import { NavLink } from 'react-router-dom';
 
+
 const NavBar = () => {
     const [ searchPlace, setSearchPlace ] = useState('')
 
     const station = () => {
-        console.log(searchPlace)
+        /* make linko to another window using react router */
+        //console.log(searchPlace.charAt(0).toUpperCase() + searchPlace.slice(1))
+        window.location.href = `/station/${searchPlace.charAt(0).toUpperCase() + searchPlace.slice(1)}`
+        //window.location.href = `/station/${searchPlace}`
     }
-
-
 
     return(
         
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark ">
         <div className="container-fluid">
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item active">
-                            <NavLink className="nav-links" to="/stats">Stats</NavLink>
+                            <NavLink className="nav-links"></NavLink>
                         </li>
                     </ul>
                 </div>
