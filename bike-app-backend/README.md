@@ -22,6 +22,14 @@ To convert csv files to mongo run.
 ```sh
   node convert.js.
 ```
+
+If using Docker 
+```sh
+docker exec -it docker_id /bin/sh
+
+node convert.js
+```
+
 - Run stations to mongo use:  readStationData('path_to_csv_file')
 - Run jorneys to mongo use: readJorneyData('path_to_csv_file')
 
