@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import StationTable from "./stationTable";
+import PieChart from "./pieChart";
 import './station.css'
 
 const Station = () => {
@@ -9,15 +10,20 @@ const Station = () => {
     const [ station, setStation ] = useState([])
     const [ popular, setPopular ] = useState([])
     const [ dataReady, setDataReady ] = useState(false)
+    const [ error, setError ] = useState('')
+
     useEffect(() => {
         (async() => {
             try {
                 const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}`)
                 const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name})
-                console.log(stationData.data)
+                console.log(stationData.data.data.length)
                 setStation(stationData.data)
                 setPopular(fivePopularStations.data)
-                if (stationData.lenght != 0){
+                if (stationData.data.data.length !== 0){
+                    setDataReady(true)
+                } else {
+                    setError("No data found check station name or ....")
                     setDataReady(true)
                 }
             } catch(e){
@@ -83,17 +89,29 @@ const Station = () => {
     )
 
     return(
-        <div>
+        <div className="station-back">
             <div className="station-flex">
                 <h2 className="text-center station-title">{name}</h2>
                 {dataReady ?
                     <div>
-                        <StationTable  data={station} />
-                        <br></br>
-                        <FiveStats />
+                        {error.length === 0 ?
+                           <div>
+                                <PieChart data={station} />
+                                <br></br>
+                                <StationTable  data={station} />
+                                <br></br>
+                                <FiveStats />
+                            </div>
+                        : 
+                            <div  style={{ height: "100vh"}}>
+                                <h3 className="text-center"  >{error}</h3>
+                            </div>
+                        
+                        }
+                       
                     </div>
                 :
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center" style={{ height: "100vh", width: "100vw"}}>
                         <div class="spinner-border " role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
