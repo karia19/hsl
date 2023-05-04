@@ -13,6 +13,9 @@
 .button {
   outline:none !important;  
 }
+.map-main {
+  margin-top: -65px;
+}
 
 .mapboxgl-popup-content {
   background: rgb(48, 48, 48);

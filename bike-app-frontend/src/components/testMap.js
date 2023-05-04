@@ -62,13 +62,13 @@ const TestMapp = () => {
     
 
     return(
-        <>
+        <div className='map-main'>
         <Suspense fallback={<Loading />}>
         <Map
             {... viewport}
             onMove={evt => setViewPort(evt.viewState)}
             mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN} //"pk.eyJ1Ijoia2FyaWEyMDIzIiwiYSI6ImNsZ3JpZHh2czBuNDczcG1reDFrNWJpeXoifQ.xu3lRPVRcWM-MAmL3FCByw"
-            style={{width: '100%', height: '100vh',  }}
+            style={{width: '100%', height: '110vh',  }}
 
             mapStyle="mapbox://styles/karia2023/clgxbaxd700cg01qy8i0u95fx"
 
@@ -100,6 +100,7 @@ const TestMapp = () => {
                         <h3>{popUpInfo.Nimi}</h3>
                         
                         <p>Address: {popUpInfo.Osoite}</p>
+                        <p>{popUpInfo.Kaupunki}</p>
                         <p>Bikes: {popUpInfo.Kapasiteet}</p>
                         <a
                             target="_new"
@@ -115,7 +116,7 @@ const TestMapp = () => {
         
         </Map>
         </Suspense>
-        </>
+        </div>
     )
 }
 

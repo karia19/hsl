@@ -28,7 +28,7 @@ const NavBar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="mx-auto order-0">
-                    <a className="navbar-brand mx-auto" href="/">
+                    <a className="navbar-brand mx-auto" style={{ fontSize: "30px"}} href="/">
                         <img src={Brand} alt="" width="40" height="30"></img>HSL Bike App 
                     </a>
                 </div>
@@ -36,9 +36,9 @@ const NavBar = () => {
 
 
                 <form className="ms-auto d-flex">
-                    <input onChange={(e) => setSearchPlace(e.target.value)} className="form-control me-1 shadow-none" type="search" placeholder="Search" aria-label="Search" />
+                    <input onChange={(e) => setSearchPlace(e.target.value)} className="form-control me-1 shadow-none" type="search" placeholder="Search station" aria-label="Search" />
                 </form>
-                <button onClick={station} className="btn btn-outline-success" type="submit">Search</button>
+                <button onClick={station} className="btn btn-success" type="submit">Search</button>
 
             </div>
         </div>

@@ -31,13 +31,25 @@ const StationTable = ( props ) => {
     },[stationNumEnd])
 
     function sortStation (){
-        setStationList(props.data.data.sort((x, y) => x['ReturnStationName'].localeCompare(y['ReturnStationName'])).slice(stationNumStart, stationNumEnd))
+        if (searchPage === 0){
+            setStationList(props.data.data.sort((x, y) => x['ReturnStationName'].localeCompare(y['ReturnStationName'])).slice(stationNumStart, stationNumEnd))
+        } else {
+            setStationList(pagnationList.sort((x, y) => x['ReturnStationName'].localeCompare(y['ReturnStationName'])).slice(stationNumStart, stationNumEnd))
+        }
     }
     function sortDuration (){
-        setStationList(props.data.data.sort((x, y) => y['Duration'] - x['Duration']).slice(stationNumStart, stationNumEnd))
+        if (searchPage === 0){
+            setStationList(props.data.data.sort((x, y) => y['Duration'] - x['Duration']).slice(stationNumStart, stationNumEnd))
+        } else {
+            setStationList(pagnationList.sort((x, y) => y['Duration'] - x['Duration']).slice(stationNumStart, stationNumEnd))
+        }
     }
     function sortDistance () {
-        setStationList(props.data.data.sort((x, y) => y['CoveredDistance'] - x['CoveredDistance']).slice(stationNumStart, stationNumEnd))
+        if (searchPage === 0){
+            setStationList(props.data.data.sort((x, y) => y['CoveredDistance'] - x['CoveredDistance']).slice(stationNumStart, stationNumEnd))
+        } else {
+            setStationList(pagnationList.sort((x, y) => y['CoveredDistance'] - x['CoveredDistance']).slice(stationNumStart, stationNumEnd))
+        }
     }
 
     function ChangeLen(x, y){

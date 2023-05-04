@@ -13,7 +13,10 @@ body {
 
 
 .navbar{
-  background-color:rgb(35, 34, 34) !important;
+  /*background-color:rgb(35, 34, 34) !important;
+  */
+  background-color: transparent  !important;
+  z-index: 222;
   
 }
 textarea:focus, input:focus{
