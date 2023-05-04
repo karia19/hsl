@@ -30,7 +30,15 @@ const StationTable = ( props ) => {
         
     },[stationNumEnd])
 
-    
+    function sortStation (){
+        setStationList(props.data.data.sort((x, y) => x['ReturnStationName'].localeCompare(y['ReturnStationName'])).slice(stationNumStart, stationNumEnd))
+    }
+    function sortDuration (){
+        setStationList(props.data.data.sort((x, y) => y['Duration'] - x['Duration']).slice(stationNumStart, stationNumEnd))
+    }
+    function sortDistance () {
+        setStationList(props.data.data.sort((x, y) => y['CoveredDistance'] - x['CoveredDistance']).slice(stationNumStart, stationNumEnd))
+    }
 
     function ChangeLen(x, y){
         setStationNumStart(x)
@@ -63,9 +71,9 @@ const StationTable = ( props ) => {
                 <thead>
                     <tr>
                         <th scope='col'>#</th>
-                        <th scope='col'>Return</th>
-                        <th scope='col'>Cov Distance</th>
-                        <th scope='col'>Duration</th>
+                        <th scope='col'>Return <button onClick={() => sortStation()}  style={{ backgroundColor: "transparent", borderColor: "transparent"}} className="btn btn-primary  dropdown-toggle dropdown-toggle-split"></button></th>
+                        <th scope='col'>Cov Distance <button onClick={() => sortDistance()} style={{ backgroundColor: "transparent", borderColor: "transparent"}} className="btn btn-primary  dropdown-toggle dropdown-toggle-split"></button></th>
+                        <th scope='col'>Duration <button onClick={() => sortDuration()} style={{ backgroundColor: "transparent", borderColor: "transparent"}} className="btn btn-primary  dropdown-toggle dropdown-toggle-split"></button></th>
                     </tr>
                 </thead>
                 <tbody>

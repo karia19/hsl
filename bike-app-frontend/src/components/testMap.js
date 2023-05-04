@@ -97,9 +97,9 @@ const TestMapp = () => {
                     >
                     <div className='pop-up-info'>
                         
-                        <h3>{popUpInfo.Osoite}</h3>
+                        <h3>{popUpInfo.Nimi}</h3>
                         
-                        <p>Place: {popUpInfo.Nimi}</p>
+                        <p>Address: {popUpInfo.Osoite}</p>
                         <p>Bikes: {popUpInfo.Kapasiteet}</p>
                         <a
                             target="_new"
