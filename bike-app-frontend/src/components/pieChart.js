@@ -7,7 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const PieChart = ( props ) => {
     
     const data = {
-        labels: ["departureMaxDistance" ,"departureMeanDistance","departureMeanDuration","departureMeanSpeed"],
+        labels: ["MaxDistance" ,"MeanDistance","MeanDuration","MeanSpeed"],
         options: [{
             maintainAspectRatio: false,
             scales: {
@@ -60,7 +60,7 @@ const PieChart = ( props ) => {
         ],  
     }   
     const data2 = {
-        labels: ["returnMaxDistance" ,"returnMeanDistance","returnMeanDuration","returnMeanSpeed"],
+        labels: ["MaxDistance" ,"MeanDistance","MeanDuration","MeanSpeed"],
         datasets: [
             {
                 data: [props.data.returnMaxDistance,  props.data.returnMeanDistance, props.data.returnMeanDuration, props.data.returnMeanSpeed],
@@ -83,6 +83,7 @@ const PieChart = ( props ) => {
         <div className="container">
         <div className="row" style={{ color: "white",}}>
             <div className="col-6">
+                <h3 className="text-center" style={{padding: "1.3rem"}}>Departures</h3>
                 <Pie data={data} />
                 <div className="text-center" style={{ marginTop: "1.3rem"}}>
                     <p>Departures: {props.data.departureResults} kpl</p>
@@ -91,6 +92,7 @@ const PieChart = ( props ) => {
             </div>
 
             <div className="col-6">
+                <h3 className="text-center" style={{padding: "1.3rem"}}>Returns</h3>
                 <Pie data={data2} />
                 <div className="text-center" style={{ marginTop: "1.3rem"}}>
                     <p>Returns: {props.data.retrunResults} kpl</p>
