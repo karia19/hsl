@@ -1,10 +1,10 @@
 
-const ten = [241, 196, 15]
-const fifteen = [39, 174, 96]
-const seventeen = [52, 152, 219]
-const twenty = [155, 89, 182]
-const thirty = [192, 57, 43]
-const lessTen = [189, 195, 199]
+const ten = '31f755'
+const fifteen = 'e3f731'
+const seventeen = 'cc31f7'
+const twenty = 'f731a1'
+const thirty = '31f7a8'
+const lessTen = '3180f7'
 
 exports.ModStationData = async ( stations )  => {
     const modDataArray = []
@@ -34,9 +34,10 @@ exports.ModStationData = async ( stations )  => {
 
         
         modDataArray.push({ 
-                 name: stations.data[i]['Name'], adress: stations.data[i]['Adress'],
-                 position: [ stations.data[i]['x'] , stations.data[i]['y']],
-                 radius: 4 , 
+                 ID:  stations.data[i]['ID'],
+                 Name: stations.data[i]['Nimi'], Adress: stations.data[i]['Adress'],
+                 Kapasiteetti: stations.data[i]['Kapasiteet'],
+                 x: stations.data[i]['x'] , y:stations.data[i]['y'],
                  Color: color
         })
 

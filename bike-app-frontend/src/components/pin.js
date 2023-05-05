@@ -11,9 +11,16 @@ const pinStyle = {
  
 };
 
-function Pin({size = 15}) {
+function Pin( color ) {
+  const fillColor = color.color
+  const pinStyle = {
+    cursor: 'pointer',
+    fill: `#${fillColor}`,
+    stroke: 'none',
+   
+  };
   return (
-    <svg height={size} viewBox="0 0 24 24" style={pinStyle}>
+    <svg height="13" viewBox="0 0 24 24"   style={pinStyle}>
       <path d={ICON} />
     </svg>
   );
