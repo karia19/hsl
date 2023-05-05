@@ -12,6 +12,9 @@ router.route("/fifty")
 /// Find by station name ///
 router.route("/station")
     .get(jorneyController.getByDepartureStation)
+/// Find by month station data ///
+router.route("/station/month")
+    .get(jorneyController.getByDepartureStationByMonth)
 /// Find longest distance shows 50  ///
 router.route("/longestDistance")
     .get(jorneyController.getLongestDistance)

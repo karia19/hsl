@@ -83,6 +83,6 @@ const makeDatatoMongo = async (dataToMongo) => {
 }
 
 //readStationData('./csvFiles/stations.csv')
-readJorneyData('./csvFiles/2021-05.csv')
-//readJorneyData('./csvFiles/2021-06.csv')
+//readJorneyData('./csvFiles/2021-05.csv')
+readJorneyData('./csvFiles/2021-06.csv')
 //readJorneyData('./csvFiles/2021-07.csv')
