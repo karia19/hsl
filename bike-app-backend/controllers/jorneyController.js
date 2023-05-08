@@ -1,7 +1,13 @@
 const jorneyData = require('../models/journeyData');
-const math = require('mathjs')
-const moment = require('moment')
+const math = require('mathjs');
+const moment = require('moment');
+const statsCal = require('../utils/statsCal');
+const { toDependencies } = require('mathjs');
 
+
+
+
+/// get jorney by id ///
 
 
 exports.getAll = async (req, res, next) => {
@@ -50,7 +56,7 @@ exports.getByDepartureStation = async ( req, res, next ) => {
         console.log(stationToFind)
         const fromDbByStation = await jorneyData.find({ DepartureStationName: stationToFind })
         const returnByStation = await jorneyData.find({  ReturnStationName: stationToFind })
-
+      
         try {
             /// stats from departure station ///
             const meanDistance = math.mean(fromDbByStation.map(x => x['CoveredDistance']))
@@ -59,8 +65,6 @@ exports.getByDepartureStation = async ( req, res, next ) => {
             const meanDuration = math.mean(fromDbByStation.map(x => x['Duration']))
             const maxDuration = Math.max(...fromDbByStation.map(x => x['Duration']))
      
-            console.log(meanDistance, maxDistance, meanDuration, maxDuration)
-            
             /// stations from return station /// 
             const returnMeanDistance = math.mean(returnByStation.map(x => x['CoveredDistance']))
             const returnMaxDistance = Math.max(...returnByStation.map(x => x['CoveredDistance']))
@@ -85,6 +89,7 @@ exports.getByDepartureStation = async ( req, res, next ) => {
 
                 data: fromDbByStation.slice(0, 50)
             })
+            
         } catch(e) {
             res.json({
                 results: fromDbByStation.length,
@@ -122,8 +127,6 @@ exports.getByDepartureStationByMonth = async ( req, res, next ) => {
             const meanDuration = math.mean(fromDbByStation.map(x => x['Duration']))
             const maxDuration = Math.max(...fromDbByStation.map(x => x['Duration']))
      
-            console.log(meanDistance, maxDistance, meanDuration, maxDuration)
-            
             /// stations from return station /// 
             const returnMeanDistance = math.mean(returnByStation.map(x => x['CoveredDistance']))
             const returnMaxDistance = Math.max(...returnByStation.map(x => x['CoveredDistance']))
@@ -201,11 +204,18 @@ exports.fivePopularStation = async ( req, res, next ) => {
     try {
         const stationToFind = req.body.name
         const topDepartureStations = await jorneyData.aggregate([
+           
+            //{$project: {month: {$month: { $toDate: '$Departure'}}}},
+            //{$match: {month: 5}},
+
+           
             // Find stations //
             { 
                 $match: { DepartureStationName: stationToFind}
             
             },
+            //{$match : { "month": [{ "$month": {$toDate: "$Departure"}}, 6] } }, 
+           
             // Goup by staion name and all station travels //
             {
                 $group : { _id : "$ReturnStationName", stations: { $push: "$$ROOT" } }
@@ -224,6 +234,7 @@ exports.fivePopularStation = async ( req, res, next ) => {
           
 
         ])
+        console.log(topDepartureStations)
         const topReturnStations = await jorneyData.aggregate([
             // Find stations //
             { 
