@@ -11,6 +11,7 @@ const Station = () => {
     const [ popular, setPopular ] = useState([])
     const [ dataReady, setDataReady ] = useState(false)
     const [ error, setError ] = useState('')
+    const [ month, setMonth ] = useState(5)
 
     useEffect(() => {
         (async() => {
@@ -31,6 +32,10 @@ const Station = () => {
             }
         })();
     }, [])
+
+    const serachByMonth = async () => {
+        console.log(month)
+    }
 
     const FiveStats = () => (
         <div className="five-stats">
@@ -60,7 +65,7 @@ const Station = () => {
                 </table>
             </div>
             <div className="col">
-                <h2 >Top return stations to {name}</h2>
+                <h2 style={{ maxWidth: "400px"}}>Top return stations to {name}</h2>
                             
                 <table className='table table-md table-borderless'>
                     <thead>
@@ -92,6 +97,20 @@ const Station = () => {
         <div className="station-back">
             <div className="station-flex">
                 <h2 className="text-center station-title">{name}</h2>
+                <div className="container align-items-center" style={{ paddingTop: "30px", paddingBottom: "30px", maxWidth:"300px"}}>
+                    <div className="mb-3 row">
+                        <select className="form-select col-auto" aria-label="Default select example"
+                            onChange={(e) => setMonth(e.target.value)}
+                            value={month}
+                        >
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="13">All months</option>
+                        </select>
+                        <button onClick={() => serachByMonth()}  style={{ marginTop:"10px"}} className="btn btn-primary col-sm-12" type="button">Search</button>
+                    </div>
+                </div>
                 {dataReady ?
                     <div>
                         {error.length === 0 ?

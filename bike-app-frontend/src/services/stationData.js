@@ -1,10 +1,10 @@
 
 const ten = '31f755'
-const fifteen = 'e3f731'
+const fifteen = '13e3f2'
 const seventeen = 'cc31f7'
 const twenty = 'f731a1'
-const thirty = '31f7a8'
-const lessTen = '3180f7'
+const thirty = '1af213'
+const lessTen = 'e22854'
 
 exports.ModStationData = async ( stations )  => {
     const modDataArray = []
@@ -12,21 +12,16 @@ exports.ModStationData = async ( stations )  => {
 
     for (let i = 0; i < stations.data.length; i++){
 
-        if (Number(stations.data[i]['Kapasiteet']) > 30 ){
+        if (Number(stations.data[i]['Kapasiteet']) > 25 ){
             color = thirty
         } else if (Number(stations.data[i]['Kapasiteet']) < 12 ) {
             color = lessTen 
-        } else if (Number(stations.data[i]['Kapasiteet']) > 15 && Number(stations.data[i]['Kapasiteet']) < 17 ) {  
+        } else if (Number(stations.data[i]['Kapasiteet']) > 12 && Number(stations.data[i]['Kapasiteet']) < 17 ) {  
             color = fifteen
         
-        } else if (Number(stations.data[i]['Kapasiteet']) > 17 && Number(stations.data[i]['Kapasiteet']) < 20 ) {  
+        } else if (Number(stations.data[i]['Kapasiteet']) > 17 && Number(stations.data[i]['Kapasiteet']) < 25 ) {  
             color = seventeen
-            
-        } else if (Number(stations.data[i]['Kapasiteet']) > 20 && Number(stations.data[i]['Kapasiteet']) < 27 ) {  
-            color = twenty
-            
         
-
         } else {
             color = ten
         }
