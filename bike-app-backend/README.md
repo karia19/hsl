@@ -49,6 +49,7 @@ node convert.js
 
 GET:
   - /api/v1/jorneys/
+  - /api/v1/jorneys/fifty?station=""&page=3 (  get fifty jorney and pagnation ) 
   - /api/v1/jorneys/longestDistance
   - /api/v1/jorneys//longestDuration
   - /api/v1/jorneys/station?name=Paavalinpuisto&month=5   ( return and departure stats from station and 50 jorneys )
