@@ -199,95 +199,102 @@ exports.getLongestDuration = async (req, res, next) => {
         res.sendStatus(500).jsone({ message: "error..."})
     }
 }
-/// Top 5 most popular return stations and departure statons ///
+/// Top 5 most popular return stations and departure statons for month if month number is 
+/// over 12 return all data and stats 
 exports.fivePopularStation = async ( req, res, next ) => {
     try {
         const stationToFind = req.body.name
-        const topDepartureStations = await jorneyData.aggregate([
-           
-            //{$project: {month: {$month: { $toDate: '$Departure'}}}},
-            //{$match: {month: 5}},
+        const monthToFind = Number(req.body.month)
+        if (monthToFind <= 12){
+            const topDepartureStations = await jorneyData.aggregate([        
+                // Find stations  and month //
+                { $match: { DepartureStationName: stationToFind}},
+                { $addFields: { month: { "$month": {$toDate: "$Departure"}}},},
+                { $match : { "month": 6 }},
+                // Goup by staion name and all station travels //
+                { $group : { _id : "$ReturnStationName", stations: { $push: "$$ROOT" } }},
+                // Stations tarvels //
+                { $addFields:{ totalDepartures : { $size: "$stations" } }},
+                // Sort totalDepartures //
+                { $sort: { totalDepartures: -1 }},
+                { $limit : 5 }
 
-           
-            // Find stations //
-            { 
-                $match: { DepartureStationName: stationToFind}
-            
-            },
-            //{$match : { "month": [{ "$month": {$toDate: "$Departure"}}, 6] } }, 
-           
-            // Goup by staion name and all station travels //
-            {
-                $group : { _id : "$ReturnStationName", stations: { $push: "$$ROOT" } }
-            },
-            // Stations tarvels //
-            {
-                $addFields:
-                {
-                  totalDepartures : { $size: "$stations" }
-                }
-            },
-            // Sort totalDepartures //
-            {
-                $sort: { totalDepartures: -1 }
-            },
-          
-
-        ])
-        console.log(topDepartureStations)
-        const topReturnStations = await jorneyData.aggregate([
-            // Find stations //
-            { 
-                $match: { ReturnStationName: stationToFind}
-            
-            },
-            // Goup by staion name and all station travels //
-            {
-                $group : { _id : "$DepartureStationName", 
-                            stations: { $push: "$$ROOT" } 
+            ])
+            const topReturnStations = await jorneyData.aggregate([
+                // Find stations and month //
+                { $match: { ReturnStationName: stationToFind} },
+                { $addFields: { month: { "$month": {$toDate: "$Departure"}}},},
+                { $match : { "month": 6 }},     
+                // Goup by staion name and all station travels //
+                { $group : { _id : "$DepartureStationName", 
+                        stations: { $push: "$$ROOT" }}},
+                // Stations tarvels //
+                { $addFields:
+                     { totalDepartures : { $size: "$stations" }}},
+                // Sort totalRetruns //
+                { $sort: { totalDepartures: -1 }},
+                { $limit: 5}
+                ])
+                
+                res.json({
+                    departureStation: topDepartureStations.map(x => (
+                        {
+                            station: x['_id'],
+                            jorneyTotal: x['totalDepartures'],                   
                         }
-            },
-            // Stations tarvels //
-            {
-                $addFields:
-                {
-                  totalDepartures : { $size: "$stations" }
-                }
-            },
-            // Sort totalRetruns //
-            {
-                $sort: { totalDepartures: -1 }
-            },
-            
-
-        ])
-        //console.log(topDepartureStations)
-        
-        res.json({
-            departureStation: topDepartureStations.slice(0, 5).map(x => (
-                {
-                    station: x['_id'],
-                    jorneyTotal: x['totalDepartures'],
-                   
+                    )),
+                    retrunSatation: topReturnStations.map(x => (
+                        {
+                            station: x['_id'],
+                            jorneyTotal: x['totalDepartures'],
+                        }
+                    )),
                     
-                }
-            )),
-            retrunSatation: topReturnStations.slice(0, 5).map(x => (
-                {
-                    station: x['_id'],
-                    jorneyTotal: x['totalDepartures'],
-                    
-                }
-            )),
-            
-        })
+                })
+        } else {
+            const topDepartureStations = await jorneyData.aggregate([        
+                // Find stations  and month //
+                { $match: { DepartureStationName: stationToFind}},
+                // Goup by staion name and all station travels //
+                { $group : { _id : "$ReturnStationName", stations: { $push: "$$ROOT" } }},
+                // Stations tarvels //
+                { $addFields:{ totalDepartures : { $size: "$stations" } }},
+                // Sort totalDepartures //
+                { $sort: { totalDepartures: -1 }},
+                { $limit : 5 }
 
-       
+            ])
+            const topReturnStations = await jorneyData.aggregate([
+                // Find stations and month //
+                { $match: { ReturnStationName: stationToFind} },     
+                // Goup by staion name and all station travels //
+                { $group : { _id : "$DepartureStationName", 
+                        stations: { $push: "$$ROOT" }}},
+                // Stations tarvels //
+                { $addFields:
+                     { totalDepartures : { $size: "$stations" }}},
+                // Sort totalRetruns //
+                { $sort: { totalDepartures: -1 }},
+                { $limit: 5}
+                ])
+                
+                res.json({
+                    departureStation: topDepartureStations.map(x => (
+                        {
+                            station: x['_id'],
+                            jorneyTotal: x['totalDepartures'],
+                        }
+                    )),
+                    retrunSatation: topReturnStations.map(x => (
+                        {
+                            station: x['_id'],
+                            jorneyTotal: x['totalDepartures'],
+                        }
+                    )),  
+                })
+        }       
     } catch(e){
         res.sendStatus(500)
     }
 }
-
-
-
 
