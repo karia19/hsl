@@ -45,7 +45,7 @@ node convert.js
 
 ## REST API 
 
-## Jorneys api
+### Jorneys api
 
 GET:
   - /api/v1/jorneys/
@@ -58,17 +58,16 @@ POST:
   - api/v1/jorneys/fivePopularStations/ { name: "", month: 3 }
  
  
-## Station api
+### Station api
 
 GET:
   - /api/v1/stations/  
 
 POST:
-  
   -/api/v1/stations/station   { name: "" }
 
 
-## Store Data
+### Store Data
 - /api/v1/store/ 
 
 
