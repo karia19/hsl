@@ -3,8 +3,8 @@ const jorneyController = require('../controllers/jorneyController');
 const router = express.Router()
 
 /// Show all  data from mongo, very slow not in use ///
-//router.route("/all")
-//    .get(jorneyController.getAll)
+router.route("/all")
+    .get(jorneyController.getAll)
 
 /// Show only fifty jorneys and pagnation in pages ///
 router.route("/fifty")
@@ -12,9 +12,6 @@ router.route("/fifty")
 /// Find by station name ///
 router.route("/station")
     .get(jorneyController.getByDepartureStation)
-/// Find by month station data ///
-router.route("/station/month")
-    .get(jorneyController.getByDepartureStationByMonth)
 /// Find longest distance shows 50  ///
 router.route("/longestDistance")
     .get(jorneyController.getLongestDistance)
