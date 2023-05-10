@@ -64,7 +64,7 @@ GET:
   - /api/v1/stations/  
 
 POST:
-  -/api/v1/stations/station   { name: "" }
+   - /api/v1/stations/station   { name: "" }
 
 
 ### Store Data
