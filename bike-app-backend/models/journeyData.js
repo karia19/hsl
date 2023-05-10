@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const jorneySchema = new mongoose.Schema({
-    Departure: {type: String },
-    Return:    {type: String},
+    Departure: {type: Date },
+    Return:    {type: Date},
     DepartureStationId:   {type: Number},
     DepartureStationName:   {type: String},
     ReturnStationId:  {type: Number},
