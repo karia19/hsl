@@ -210,7 +210,7 @@ exports.fivePopularStation = async ( req, res, next ) => {
                 // Find stations  and month //
                 { $match: { DepartureStationName: stationToFind}},
                 { $addFields: { month: { "$month": {$toDate: "$Departure"}}},},
-                { $match : { "month": 6 }},
+                { $match : { "month": monthToFind }},
                 // Goup by staion name and all station travels //
                 { $group : { _id : "$ReturnStationName", stations: { $push: "$$ROOT" } }},
                 // Stations tarvels //
@@ -224,7 +224,7 @@ exports.fivePopularStation = async ( req, res, next ) => {
                 // Find stations and month //
                 { $match: { ReturnStationName: stationToFind} },
                 { $addFields: { month: { "$month": {$toDate: "$Departure"}}},},
-                { $match : { "month": 6 }},     
+                { $match : { "month": monthToFind }},     
                 // Goup by staion name and all station travels //
                 { $group : { _id : "$DepartureStationName", 
                         stations: { $push: "$$ROOT" }}},
