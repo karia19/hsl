@@ -46,6 +46,7 @@ node convert.js
 ## REST API 
 
 Jorneys api
+
 GET:
   - /api/v1/jorneys/
   - /api/v1/jorneys/longestDistance
@@ -58,6 +59,7 @@ POST:
  
  
 Station api
+
 GET:
   - /api/v1/stations/  
 
