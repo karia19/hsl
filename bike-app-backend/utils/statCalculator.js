@@ -1,8 +1,7 @@
 const math = require('mathjs')
 
-
-
-const calculateStat = async (fromDbByStation, returnByStation) => {
+function convert (fromDbByStation, returnByStation) {
+     
     try {
         /// stats from departure station ///
         const meanDistance = math.mean(fromDbByStation.map(x => x['CoveredDistance']))
@@ -10,7 +9,7 @@ const calculateStat = async (fromDbByStation, returnByStation) => {
 
         const meanDuration = math.mean(fromDbByStation.map(x => x['Duration']))
         const maxDuration = Math.max(...fromDbByStation.map(x => x['Duration']))
- 
+         
         /// stations from return station /// 
         const returnMeanDistance = math.mean(returnByStation.map(x => x['CoveredDistance']))
         const returnMaxDistance = Math.max(...returnByStation.map(x => x['CoveredDistance']))
@@ -35,7 +34,6 @@ const calculateStat = async (fromDbByStation, returnByStation) => {
 
             data: fromDbByStation.slice(0, 50)
         }
-
     } catch(e) {
         return {
             results: fromDbByStation.length,
@@ -48,8 +46,6 @@ const calculateStat = async (fromDbByStation, returnByStation) => {
         }
 
     }
-
 }
 
-
-module.exports = calculateStat
+module.exports = { convert }
