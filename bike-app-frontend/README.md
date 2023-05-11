@@ -10,7 +10,9 @@ When a marker is clicked, a detailed view of the station's stats will be display
 
 ## Installation To install this application, clone the repository and install the dependencies:  
 ``` 
-git clone https://github.com/username/repo.git cd repo npm install 
+git clone https://github.com/username/repo.git 
+
+cd repo npm install 
 ``` 
 Once the dependencies are installed, start the application with: 
 ``` npm start ``` 
