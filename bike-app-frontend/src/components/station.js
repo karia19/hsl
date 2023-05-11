@@ -34,8 +34,20 @@ const Station = () => {
     }, [])
 
     const serachByMonth = async () => {
-        console.log(month)
+        try {
+            setDataReady(false)
+            const monthData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
+            console.log(monthData)
+            if (monthData.data.data.length !== 0) {
+                setDataReady(true)
+            }
+            
+
+        } catch (e){
+            console.log(e)
+        }
     }
+    
 
     const FiveStats = () => (
         <div className="five-stats">
@@ -97,6 +109,7 @@ const Station = () => {
         <div className="station-back">
             <div className="station-flex">
                 <h2 className="text-center station-title">{name}</h2>
+                <p className="text-center">{`Show jorney data from station ${name}. Default month is May you can choose other month and to select all data from station select All Months`}  </p>
                 <div className="container align-items-center" style={{ paddingTop: "30px", paddingBottom: "30px", maxWidth:"300px"}}>
                     <div className="mb-3 row">
                         <select className="form-select col-auto" aria-label="Default select example"
@@ -131,7 +144,7 @@ const Station = () => {
                     </div>
                 :
                     <div className="d-flex justify-content-center" style={{ height: "100vh", width: "100vw"}}>
-                        <div class="spinner-border " role="status">
+                        <div class="spinner-grow text-info" style={{width: "3rem", height: "3rem"}} role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
