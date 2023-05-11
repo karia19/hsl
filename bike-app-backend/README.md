@@ -45,11 +45,30 @@ node convert.js
 
 ## REST API 
 
-- /api/v1/jorneys/
-  - api/v1/jorneys/longestDistance
-  - api/v1/jorneys//longestDuration
+### Jorneys api
+
+GET:
+  - /api/v1/jorneys/
+  - /api/v1/jorneys/fifty?station=""&page=3 (  get fifty jorney and pagnation ) 
+  - /api/v1/jorneys/longestDistance
+  - /api/v1/jorneys//longestDuration
+  - /api/v1/jorneys/station?name=Paavalinpuisto&month=5   ( return and departure stats from station and 50 jorneys )
   
-- /api/v1/stations/
+
+POST:
+  - api/v1/jorneys/fivePopularStations/ { name: "", month: 3 }
+ 
+ 
+### Station api
+
+GET:
+  - /api/v1/stations/  
+
+POST:
+   - /api/v1/stations/station   { name: "" }
+
+
+### Store Data
 - /api/v1/store/ 
 
 
