@@ -8,7 +8,8 @@ When the app is loaded, the map will show bike station markers in different colo
 When a marker is clicked, a detailed view of the station's stats will be displayed, including the top five departure and return stations and the mean travel duration for the month of May. Users can also view stats for all months by clicking the "All Months" button.
 
 
-## Installation To install this application, clone the repository and install the dependencies:  
+## Installation 
+To install this application, clone the repository and install the dependencies:  
 ``` 
 git clone https://github.com/username/repo.git 
 
