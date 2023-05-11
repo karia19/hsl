@@ -3,13 +3,13 @@ import Map, { Marker, Popup } from 'react-map-gl';
 import Pin from './pin'
 import { ModStationData } from '../services/stationData';
 //import 'mapbox-gl/dist/mapbox-gl.css';
-import Icon from '../images/map-marker.png'
+//import Icon from '../images/map-marker.png'
 import axios from 'axios';
 
-import CITIES from '../data.json'
+//import CITIES from '../data.json'
 
 
-const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
+//const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
 const URL_stations = 'http://localhost:3003/api/v1/stations'
 
 const TestMapp = () => {

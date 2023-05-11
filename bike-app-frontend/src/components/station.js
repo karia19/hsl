@@ -16,8 +16,8 @@ const Station = () => {
     useEffect(() => {
         (async() => {
             try {
-                const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}`)
-                const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name})
+                const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
+                const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
                 console.log(stationData.data.data.length)
                 setStation(stationData.data)
                 setPopular(fivePopularStations.data)
@@ -36,18 +36,23 @@ const Station = () => {
     const serachByMonth = async () => {
         try {
             setDataReady(false)
-            const monthData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
-            console.log(monthData)
-            if (monthData.data.data.length !== 0) {
+            console.log("search month again", month, name)
+            const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
+            const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
+            console.log(stationData.data.data.length)
+            setStation(stationData.data)
+            setPopular(fivePopularStations.data)
+
+            if (stationData.data.data.length !== 0){
+                setDataReady(true)
+            } else {
+                setError("No data found check station name or ....")
                 setDataReady(true)
             }
-            
+        } catch(e){
 
-        } catch (e){
-            console.log(e)
         }
     }
-    
 
     const FiveStats = () => (
         <div className="five-stats">
