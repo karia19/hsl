@@ -79,7 +79,7 @@ const StationTable = ( props ) => {
     return(
         <div className='container'>
             
-            <table style={{ color: "white", marginTop: "1.2rem" }} className='table table-md'>
+            <table style={{ color: "white", marginTop: "1.2rem" }} className='table table-md '>
                 <thead>
                     <tr>
                         <th scope='col'>#</th>

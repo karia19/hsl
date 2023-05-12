@@ -59,7 +59,7 @@ const Station = () => {
         <div className="container" style={{ paddingTop: "30px", paddingBottom: "30px"}}>
         <div className="row" style={{ marginTop: "1.2rem"}}>
             <div className="col">
-                <h2 >Top departure stations from {name}</h2>
+                <h2 style={{ maxWidth: "400px", marginBottom: "1.1rem"}}>Top departure stations from {name}</h2>
             
                 <table className='table table-md table-borderless'>
                     <thead>
@@ -82,7 +82,7 @@ const Station = () => {
                 </table>
             </div>
             <div className="col">
-                <h2 style={{ maxWidth: "400px"}}>Top return stations to {name}</h2>
+                <h2 style={{ maxWidth: "400px", marginBottom: "1.1rem"}}>Top return stations to {name}</h2>
                             
                 <table className='table table-md table-borderless'>
                     <thead>
