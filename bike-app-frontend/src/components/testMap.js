@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react'
 import Map, { Marker, Popup } from 'react-map-gl';
 import Pin from './pin'
-import { ModStationData } from '../services/stationData';
+import  ModStationData  from '../services/stationData';
 //import 'mapbox-gl/dist/mapbox-gl.css';
 //import Icon from '../images/map-marker.png'
 import axios from 'axios';

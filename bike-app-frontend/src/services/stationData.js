@@ -6,7 +6,7 @@ const twenty = 'f731a1'
 const thirty = '1af213'
 const lessTen = 'e22854'
 
-exports.ModStationData = async ( stations )  => {
+const ModStationData = async ( stations )  => {
     const modDataArray = []
     let color =  [241, 196, 15]
 
@@ -44,3 +44,5 @@ exports.ModStationData = async ( stations )  => {
 
 
 }
+
+export default ModStationData;
