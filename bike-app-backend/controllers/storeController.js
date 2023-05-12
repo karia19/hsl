@@ -24,7 +24,7 @@ exports.deleteJorney = async (req, res, next) => {
         const result = await jorneyData.findByIdAndDelete(req.params.id);
         res.send(result);
     } catch (error) {
-        res.json({ message: "nod data"});
+        res.json({ message: "no data"});
     }
 }
 
@@ -32,6 +32,7 @@ exports.deleteJorney = async (req, res, next) => {
 exports.addStation = async (req, res, next) => {
     try {
         const result = await statiosData.create(req.body);
+        console.log(result)
         res.send(result);
     } catch (error) {
         res.send(error);
@@ -52,6 +53,6 @@ exports.deleteStation = async (req, res, next) => {
         const result = await statiosData.findByIdAndDelete(req.params.id);
         res.send(result);
     } catch (error) {
-        res.json({ message: "nod data"});
+        res.status(400).json({ message: "no station to delete. Check again ...."});
     }
 }
