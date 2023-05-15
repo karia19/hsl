@@ -19,7 +19,7 @@ exports.getAll = async (req, res, next) => {
 
 
     } catch(e){
-        res.sendStatus(500).json({ messgae: "err..."})
+        res.sendStatus(400).json({ messgae: "err..."})
     }
 }
 /// get fifty jorney using query parametters ( pagnation ) ///
@@ -41,7 +41,7 @@ exports.getFifty = async (req, res, next) => {
         })
 
     } catch(e){
-        res.sendStatus(500).json({ message: "err in get...."})
+        res.sendStatus(400).json({ message: "err in get...."})
     }
 }
 /// find departure stations data by station and calculate some stats by month if moth is over 12 return all data by station ///
@@ -75,7 +75,7 @@ exports.getByDepartureStation = async ( req, res, next ) => {
         }
 
     } catch(e){
-        res.sendStatus(500).json({ message: "error..."})
+        res.sendStatus(400).json({ message: "error..."})
     }
 
 } 
@@ -107,7 +107,7 @@ exports.getLongestDuration = async (req, res, next) => {
         })
 
     } catch(e) {
-        res.sendStatus(500).jsone({ message: "error..."})
+        res.sendStatus(400).jsone({ message: "error..."})
     }
 }
 /// Top 5 most popular return stations and departure statons for month if month number is 
@@ -205,7 +205,7 @@ exports.fivePopularStation = async ( req, res, next ) => {
                 })
         }       
     } catch(e){
-        res.sendStatus(500)
+        res.sendStatus(400)
     }
 }
 
