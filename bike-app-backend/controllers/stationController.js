@@ -26,6 +26,6 @@ exports.stationByName = async (req, res, next) => {
         })
 
     } catch(e){
-        res.semd(500).json({ message: "err..."})
+        res.send(500).json({ message: "err..."})
     }
 }

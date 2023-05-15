@@ -2,14 +2,9 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 
 
-//const pass = process.env.MONGO_PASSWORD
-//const user = process.env.MONGO_USER
-
-//const mongoUri = `mongodb://${user}:${pass}@0.0.0.0:27017?authSource=admin`
-//const mongoUri =  `mongodb://karppa:karppa2023@0.0.0.0:27017?authSource=admin`
-
 // Mongo uri in Docker //
-const mongoUri =  `mongodb://karppa:karppa2023@mongo:27017?authSource=admin`
+const monog_url = "mongodb://karppa:karppa2023@mongo:27017?authSource=admin"
+const mongoUri = process.env.MONGO_URL // Replace with your mongo uri    
 
 
 // Connect mongo docker //
