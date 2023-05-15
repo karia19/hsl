@@ -41,6 +41,7 @@ node convert.js
 - Express - fast node.js network app framework
 - csvtojson - convert csv file json object
 - mongoose - mongo db connection
+- jest and supertest for testing
 
 
 ## REST API 

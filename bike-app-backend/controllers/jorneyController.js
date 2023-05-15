@@ -7,7 +7,6 @@ const statCalculator = require('../utils/statCalculator');
 
 exports.getAll = async (req, res, next) => {
     try {
-        
         const jorneyDataFromDatabase = await jorneyData.find()
         console.log(jorneyDataFromDatabase)
         
@@ -15,9 +14,6 @@ exports.getAll = async (req, res, next) => {
             results: jorneyDataFromDatabase.length,
             data: jorneyDataFromDatabase
         })
-        
-
-
     } catch(e){
         res.sendStatus(400).json({ messgae: "err..."})
     }
