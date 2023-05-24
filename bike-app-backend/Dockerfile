@@ -2,11 +2,7 @@ FROM node:16.13.2
 #FROM node:11-alpine
 WORKDIR /app
 COPY package*.json ./
-
-#RUN if [ "$NODE_ENV"= "development" ]; \
-#        then npm install; \
-#        else npm install --only=production; \
-#        fi
+RUN npm install
 
 COPY . .
 
