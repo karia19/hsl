@@ -19,7 +19,7 @@ services:
     depends_on:
       - mongo
       
-    command: npm run dev
+    command: npm run start
 
     ports:
       - "3003:3003"
