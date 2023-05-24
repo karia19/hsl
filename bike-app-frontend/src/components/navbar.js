@@ -7,7 +7,7 @@ const NavBar = () => {
     const [ searchPlace, setSearchPlace ] = useState('')
 
     const station = () => {
-        /* make linko to another window using react router */
+        /* make link to another window using react router */
         //console.log(searchPlace.charAt(0).toUpperCase() + searchPlace.slice(1))
         window.location.href = `/station/${searchPlace.charAt(0).toUpperCase() + searchPlace.slice(1)}`
         //window.location.href = `/station/${searchPlace}`
