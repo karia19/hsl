@@ -2,7 +2,6 @@
 const ten = '31f755'
 const fifteen = '13e3f2'
 const seventeen = 'cc31f7'
-const twenty = 'f731a1'
 const thirty = '1af213'
 const lessTen = 'e22854'
 

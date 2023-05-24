@@ -17,7 +17,7 @@ function App() {
           <Route path='/'  element={ <MapTest /> } />
           <Route path="/stats" element={ <Stats />} />
           <Route path='/station/:name' element={ <Station />} />
-          <Route path='/admin/store' element={ <StorePanel />} />        
+          <Route path='/admin/station' element={ <StorePanel />} />        
     </Routes>
     </div>
   );

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
-
+import { fetchData } from '../services/stationDataApi'
 
 const URL_stations = 'http://localhost:3003/api/v1/stations'
-
 
 const StorePanel = () => {
     const [ stations, setStations ] = useState([]);
@@ -23,23 +21,27 @@ const StorePanel = () => {
 
     useEffect(() => {
         (async() => {
-            try {
-                const stationData = await axios.get(URL_stations)
-                setStations(stationData.data.data)
-            } catch(e){
-
-            }
+            fetchDataFromApi()
+            //const dataFromApi = await fetchData(URL_stations)
+            //setStations(dataFromApi)
         })();
     }, [])
+    const fetchDataFromApi = async () => {
+        try {
+            const stationData = await axios.get(URL_stations)
+            setStations(stationData.data.data)
+        } catch(e){
+            console.log(e)
+        }
+    }
+
     const removeStation = async (id, buttonId) => {
         console.log(id, buttonId)
         const buttonI = 'button-modal-'+ buttonId
         const modalButton = document.getElementById(buttonI)
         try {
-            const deleteRes = await axios.delete(`http://localhost:3003/api/v1/store/station/${1222}`)
+            const deleteRes = await axios.delete(`http://localhost:3003/api/v1/store/station/${id}`)
             console.log(deleteRes)
-            
-
             if (deleteRes.status === 200){   
                 const t = document.createTextNode(" Succes ...");
                 modalButton.appendChild(t)
@@ -64,9 +66,9 @@ const StorePanel = () => {
         } else {
             // ID is pseudo random number ///
             const data = {
-                FID: stations.length + 1, ID: stations.length + 22, nimi: nimi, namnn: namnn, adress: adress, osoite: osoite, kaupunki: kaupunki, stad: 
-                stad, operaattori: operaattori, kapasiteetti: kapasiteetti,
-                longitude: longitude, latitude: latitude
+                FID: stations.length + 1, ID: stations.length + 22, Nimi: nimi, Namnn: namnn, Name: name, Adress: adress, Osoite: osoite, Kaupunki: kaupunki, Stad: 
+                stad, Operaattori: operaattori, Kapasiteetti: kapasiteetti,
+                x: longitude, y: latitude
             }
             const resStore = await axios.post('http://localhost:3003/api/v1/store/station', data)
             if (resStore.status === 200){
@@ -121,7 +123,7 @@ const StorePanel = () => {
             <h2 style={{ marginTop:"1.3rem"}} className='text-center'>Add station</h2>
             <form className="row g-3">
                 <div className="col-6">
-                    <label  className="form-label">Nimi</label>
+                    <label className="form-label" data-testid="nimi">Nimi</label>
                     <input onChange={(e) => setNimi(e.target.value)} type="text" className="form-control" id="Nimi" placeholder="Hanasaari" />
                 </div>
                 
@@ -174,13 +176,13 @@ const StorePanel = () => {
            
                 
             </form>
-            {message.length !== 0 ? <div style={{ marginTop:"1.3rem"}}className="alert alert-primary" role="alert">
-                {message}
-            </div> : null}
-            <div style={{ marginTop:"1.3rem"}} className="col-12">
-                    <button onClick={() => sendStation()} type="submit" className="btn btn-primary">Send</button>
-            </div>
-            <ShowStations />
+                {message.length !== 0 ? <div style={{ marginTop:"1.3rem"}}className="alert alert-primary" role="alert">
+                    {message}
+                </div> : null}
+                <div style={{ marginTop:"1.3rem"}} className="col-12">
+                        <button onClick={() => sendStation()} type="submit" className="btn btn-primary">Send</button>
+                </div>
+                <ShowStations />
         </div>
     );
 }
