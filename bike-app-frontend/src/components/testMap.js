@@ -102,7 +102,7 @@ const TestMapp = () => {
                         <p>Bikes: {popUpInfo.Kapasiteetti}</p>
                         <a
                             target="_new"
-                            href={`http://localhost:3000/station/${popUpInfo.Name}`}
+                            href={`/station/${popUpInfo.Name}`}
                         >
                             <button className='btn btn-outline-primary shadow-none'>More Details</button>
                         </a>
