@@ -16,8 +16,12 @@ const Station = () => {
     useEffect(() => {
         (async() => {
             try {
-                const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
-                const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
+                //const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
+                //const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
+
+                const stationData = await axios.get(`https://nhl.kumstrapi.xyz/api/v1/jorneys/station?name=${name}&month=${month}`)
+                const fivePopularStations = await axios.post('https://nhl.kumstrapi.xyz/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
+
                 console.log(stationData.data.data.length)
                 setStation(stationData.data)
                 setPopular(fivePopularStations.data)
@@ -36,10 +40,13 @@ const Station = () => {
     const serachByMonth = async () => {
         try {
             setDataReady(false)
-            console.log("search month again", month, name)
-            const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
-            const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
-            console.log(stationData.data.data.length)
+            
+            //const stationData = await axios.get(`http://localhost:3003/api/v1/jorneys/station?name=${name}&month=${month}`)
+            //const fivePopularStations = await axios.post('http://localhost:3003/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
+            
+            const stationData = await axios.get(`https://nhl.kumstrapi.xyz/api/v1/jorneys/station?name=${name}&month=${month}`)
+            const fivePopularStations = await axios.post('https://nhl.kumstrapi.xyz/api/v1/jorneys/fivePopularStations/', {name: name, month: month})
+            
             setStation(stationData.data)
             setPopular(fivePopularStations.data)
 
@@ -73,7 +80,7 @@ const Station = () => {
                         {popular['departureStation'].map((x, index) => 
                             <tr key={index}>
                                 <td>{index + 1}</td>
-                                <td className="station-link"><a href={`http://localhost:3000/station/${x.station}`}>{x.station}</a></td>
+                                <td className="station-link"><a href={`/station/${x.station}`}>{x.station}</a></td>
                                 <td >{x.jorneyTotal}</td>
                                 
                             </tr>
@@ -96,7 +103,7 @@ const Station = () => {
                         {popular['retrunSatation'].map((x, index) => 
                             <tr key={index}>
                                 <td>{index + 1}</td>
-                                <td className="station-link"><a href={`http://localhost:3000/station/${x.station}`}>{x.station}</a></td>
+                                <td className="station-link"><a href={`/station/${x.station}`}>{x.station}</a></td>
                                 <td >{x.jorneyTotal}</td>
                                 
                             </tr>
