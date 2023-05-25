@@ -9,7 +9,7 @@ import axios from 'axios';
 //import CITIES from '../data.json'
 
 //const URL_stations = 'http://localhost:3003/api/v1/stations'
-const URL_stations = 'http://3.127.8.14/api/v1/stations'
+const URL_stations = 'https://nhl.kumstrapi.xyz/api/v1/stations'
 
 const TestMapp = () => {
     const [ stationsData, setStationsData ] = useState([])
