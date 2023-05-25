@@ -8,9 +8,8 @@ import axios from 'axios';
 
 //import CITIES from '../data.json'
 
-
-//const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
-const URL_stations = 'http://localhost:3003/api/v1/stations'
+//const URL_stations = 'http://localhost:3003/api/v1/stations'
+const URL_stations = 'http://3.127.8.14/api/v1/stations'
 
 const TestMapp = () => {
     const [ stationsData, setStationsData ] = useState([])
@@ -76,7 +75,7 @@ const TestMapp = () => {
         <Map
             {... viewport}
             onMove={evt => setViewPort(evt.viewState)}
-            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN} //"pk.eyJ1Ijoia2FyaWEyMDIzIiwiYSI6ImNsZ3JpZHh2czBuNDczcG1reDFrNWJpeXoifQ.xu3lRPVRcWM-MAmL3FCByw"
+            mapboxAccessToken= "pk.eyJ1Ijoia2FyaWEyMDIzIiwiYSI6ImNsZ3JpZHh2czBuNDczcG1reDFrNWJpeXoifQ.xu3lRPVRcWM-MAmL3FCByw" // {process.env.REACT_APP_MAPBOX_TOKEN}}
             style={{width: '100%', height: '110vh',  }}
 
             mapStyle="mapbox://styles/karia2023/clgxbaxd700cg01qy8i0u95fx"
