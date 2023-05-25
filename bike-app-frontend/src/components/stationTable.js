@@ -59,8 +59,9 @@ const StationTable = ( props ) => {
     const LoadMoreData = async () => {
         console.log(searchPage)
         try {
-            const newPage = await axios.get(`http://localhost:3003/api/v1/jorneys/fifty?page=${searchPage}&station=${name}`)
-            
+            //const newPage = await axios.get(`http://localhost:3003/api/v1/jorneys/fifty?page=${searchPage}&station=${name}`)
+            const newPage = await axios.get(`https://hsl-1s0l.onrender.com/api/v1/jorneys/fifty?page=${searchPage}&station=${name}`)
+
             setPagnationList(newPage.data.data)
             setStationList(newPage.data.data.slice(0, 10))
             stationNumStart(0)
