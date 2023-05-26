@@ -82,7 +82,7 @@ const PieChart = ( props ) => {
     return (
         <div className="container">
         <div className="row" style={{ color: "white",}}>
-            <div className="col-6">
+            <div className="col-sm-6">
                 <h3 className="text-center" style={{padding: "1.3rem"}}>Departures</h3>
                 <Pie data={data} />
                 <div className="text-center" style={{ marginTop: "1.3rem"}}>
@@ -91,7 +91,7 @@ const PieChart = ( props ) => {
                 </div>
             </div>
 
-            <div className="col-6">
+            <div className="col-sm-6">
                 <h3 className="text-center" style={{padding: "1.3rem"}}>Returns</h3>
                 <Pie data={data2} />
                 <div className="text-center" style={{ marginTop: "1.3rem"}}>
