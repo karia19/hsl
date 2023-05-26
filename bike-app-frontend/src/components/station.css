@@ -23,3 +23,9 @@
 .five-stats {
     background-color: rgb(140, 190, 178);
 }
+@media (max-width: 773px) {
+    .navvbar {
+        background-color: none;
+
+    }
+}
