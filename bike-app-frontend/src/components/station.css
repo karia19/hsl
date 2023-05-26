@@ -24,7 +24,7 @@
     background-color: rgb(140, 190, 178);
 }
 @media (max-width: 773px) {
-    .navvbar {
+    .navbar {
         background-color: none;
 
     }
