@@ -5,6 +5,7 @@ This project provides a frontend and backend solution for managing and displayin
 Additionally, you can add and remove stations from the database.
 
 ## [DemoApp](https://hsl-1s0l.onrender.com)
+This App may result in slow performance ...
 
 ## RUN APP
 Backend
